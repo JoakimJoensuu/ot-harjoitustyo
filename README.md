@@ -1,4 +1,4 @@
-# Ohjelmistotekniikka viikko 1 tehtävät
+# Ohjelmistotekniikka viikon 1 tehtävät
 
 Tehtävissä harjoiteltiin *terminaali*n, GitHubin ja **Git**in käyttöä.
 
