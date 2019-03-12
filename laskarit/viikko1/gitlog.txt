@@ -1,0 +1,127 @@
+commit 2077e87e4d2aec101f6fdd7cf6937f812b5ac3da
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:35:46 2019 +0200
+
+    nimettiin kolma -> kolmas
+
+ kolma.txt => molmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 946a9de7eefcb73f0a1fe02c3adf8ba7447d572a
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:35:25 2019 +0200
+
+    Muutettiin kansiorakennetta oikeaksi
+
+ file22 => tiedostoja/file22 | 0
+ file3 => tiedostoja/file3   | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit d0c4695f626e926d277e51a565feacd639afe0ae
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:34:00 2019 +0200
+
+    Säätöjä
+
+ file2           | 0
+ file1 => file22 | 0
+ file3           | 1 +
+ 3 files changed, 1 insertion(+)
+
+commit 739513aa3c650fef7c2bb9995565f6ac53e66866
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:30:25 2019 +0200
+
+    Luotiin uusi kansio ja file1, file2, file3
+
+ file1 | 0
+ file2 | 0
+ file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit f6bb6cce117f23e6d7797b5c631e8d425ca5413b
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:18:50 2019 +0200
+
+    Muokattiin eka ja toka
+
+ eka.txt   | 4 +---
+ kolma.txt | 6 +++++-
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+commit 3291d7743b467d5b7e4bf2edbf2e6f9689e1f4b3
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:14:46 2019 +0200
+
+    Poistettiin toinen.txt. Uudelleennimettiin tiedosto.txt => eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ toinen.txt              | 1 -
+ 2 files changed, 1 deletion(-)
+
+commit 138c73eefd1bfed79b556efa1fedefb6fe936541
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:09:50 2019 +0200
+
+    Muokattiin tiedosto.txt
+
+ tiedosto.txt | 183 +++++++++++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 135 insertions(+), 48 deletions(-)
+
+commit f47cd7e051d5cd7a88a21c2362530dcedad0bb70
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:06:28 2019 +0200
+
+    Lisättiin paljon teksiä tiedosto.txt
+
+ tiedosto.txt | 75 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+
+commit 674add3de3fbad86ba26da36e7c6870cd47aee6e
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:01:15 2019 +0200
+
+    luotiin stuff/asdfasdfasdfa
+
+ stuff/asdfasdfasdf | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 110d5a5c0862e4be7804cf2787c3b5315fd85a25
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 13:00:23 2019 +0200
+
+    Lisättiin tekstiä kolma.txt ja toinen.txt
+
+ kolma.txt  | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit abdb6613741d091c77797b5a38d6fec0e1298a5d
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 12:59:00 2019 +0200
+
+    Luotiin kolmas tiedosto
+
+ kolma.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 68df8a6b52847b1d86a1a5650a727b78675065fe
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 12:57:33 2019 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 5cbfec4338e2db16c2b1fec0ac599cf751949eda
+Author: Joakim <joakim.joensuu@gmail.com>
+Date:   Tue Mar 12 12:56:08 2019 +0200
+
+    luotiin tiedosto.txt
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+
