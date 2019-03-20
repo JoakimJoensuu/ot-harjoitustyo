@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
 
 public class MaksukorttiTest {
 
@@ -39,7 +40,7 @@ public class MaksukorttiTest {
         kortti.syoEdullisesti();
         assertEquals("Kortilla on rahaa 2.0 euroa", kortti.toString());
     }
-    
+
     @Test
     public void syoMaukkaastiEiVieSaldoaNegatiiviseksi() {
         kortti.syoMaukkaasti();
@@ -58,5 +59,30 @@ public class MaksukorttiTest {
     public void kortinSaldoEiYlitaMaksimiarvoa() {
         kortti.lataaRahaa(200);
         assertEquals("Kortilla on rahaa 150.0 euroa", kortti.toString());
+    }
+
+    @Test
+    public void negatiivistaSummaaEiVoiLadata() {
+        kortti.lataaRahaa(-99999);
+        assertThat(kortti.toString(), is("Kortilla on rahaa 10.0 euroa"));
+
+    }
+
+    @Test
+    public void edullisenVoiOstaaTasarahalla() {
+        kortti.syoEdullisesti();
+        kortti.syoEdullisesti();
+        kortti.syoEdullisesti();
+        kortti.syoEdullisesti();
+        assertThat(kortti.toString(), is("Kortilla on rahaa 0.0 euroa"));
+    }
+
+    @Test
+    public void maukkaanVoiOstaaTasarahalla() {
+        kortti.lataaRahaa(2);
+        kortti.syoMaukkaasti();
+        kortti.syoMaukkaasti();
+        kortti.syoMaukkaasti();
+        assertThat(kortti.toString(), is("Kortilla on rahaa 0.0 euroa"));
     }
 }
