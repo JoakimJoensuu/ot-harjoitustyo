@@ -2,9 +2,9 @@
 
 ## Sovelluksen tarkoitus
 
-Sijoittamisessa varsinkin rahastosijoittamisessa käytetään usein kahta erilaista sijoitusstrategiaa cost averaging ja value averaging.
+Sijoittamisessa, varsinkin rahastosijoittamisessa käytetään usein kahta erilaista sijoitusstrategiaa, jotka ovat englanniksi cost averaging ja value averaging.
 
-Cost averaging strategiassa, vapaasti suomen kielelle käännettynä kustannuksen keskiarvoistamistrategiassa, sijoitetaan tietyn periodin välein, esimerkiksi kuukausi tai viikko, aina samansuuruinen summa. Tällä tavalla sijoitetaan indeksiin ja saadaan indeksin mukainen tuotto.
+Cost averaging strategiassa, vapaasti suomen kielelle käännettynä kustannuksen keskiarvoistamistrategiassa, sijoitetaan tietyn periodin välein, esimerkiksi kuukausi tai viikko, aina samansuuruinen summa. Tällä tavalla sijoittaessa tuotto on kohteen arvonvaihtelun mukainen.
 
 Value averaging strategiassa, vapaasti suomen kielelle käännettynä arvon keskiarvoistamisstrategiassa, ero aikaisempaan näkyy periodeittain sijoitettavan summan koossa. Sijoitettava summa kasvaa jos kohteen arvo laskee ja pienenee jos kohteen arvo nousee. Mikäli kohteen arvo kasvaa tarpeeksi myydään osuuksia. Tällä tavalla pyritään ostamaan kohdetta enemmän kun se on halvempaa ja ostamaan vähemmän kun se on kalliimpaa.
 
