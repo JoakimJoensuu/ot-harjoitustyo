@@ -36,7 +36,7 @@ Simulaationäkymä, josta voidaan tarkastella eri sijoitustrategioiden kehityst�
   - valitsemalla simulaation manuaalisen luonnin käyttäjä ohjataan näkymään johon syötetään eri ajankohtien kurssit
   - valitsemalla simulattion satunnaisen generoinnin käyttäjä ohjataan suoraa simulaationäkymään
   - ennen valintaa käyttäjältä vaaditaan esitiedot simulaation luomiselle
-- käyttäjä voi ladata aikaisemmin luodun simulaation josta käyttäjä ohjataan simulaationäkymään
+- käyttäjä voi ladata aikaisemmin luodun simulaation tietokantaan josta käyttäjä ohjataan simulaationäkymään
 
 ### Simulaation tarkastelu
 
