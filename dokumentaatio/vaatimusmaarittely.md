@@ -33,17 +33,17 @@ Simulaationäkymä, josta voidaan tarkastella eri sijoitustrategioiden kehityst�
 ### Simulaation luominen
 
 - käyttäjä voi luoda simulaation manuaalisesti tai generoimalla sen satunnaisesti
- - valitsemalla simulaation manuaalisen luonnin käyttäjä ohjataan näkymään johon syötetään eri ajankohtien kurssit
- - valitsemalla simulattion satunnaisen generoinnin käyttäjä ohjataan suoraa simulaationäkymään
- - ennen valintaa käyttäjältä vaaditaan esitiedot simulaation luomiselle
+  - valitsemalla simulaation manuaalisen luonnin käyttäjä ohjataan näkymään johon syötetään eri ajankohtien kurssit
+  - valitsemalla simulattion satunnaisen generoinnin käyttäjä ohjataan suoraa simulaationäkymään
+  - ennen valintaa käyttäjältä vaaditaan esitiedot simulaation luomiselle
 - käyttäjä voi ladata aikaisemmin luodun simulaation josta käyttäjä ohjataan simulaationäkymään
 
 ### Simulaation tarkastelu
 
 - käyttäjä voi valita näytetäänkö viivakaaviossa simulaationäkymän graafissa kurssikehitys, eri strategioiden tuotto tai tuottoprosentti'
- - myös tarkasteltava aikaväli on valittavissa
+  - myös tarkasteltava aikaväli on valittavissa
 - viivakaavion alla olevasta näkymästä näkyy sijoitustrategioiden tuotto ja arvo kurssikehityksen eri kohdissa
- - eri kohta valitaan viivakaaviota klikkaamalla
+  - eri kohta valitaan viivakaaviota klikkaamalla
 - alimpana napit, joista pääsee takaisin päävalikkoon, muokkaamaan kohteen hetkittäisiä kursseja, tallentamaan simulaation tietokantaan
 
 ## Jatkokehitysideoita
