@@ -40,7 +40,7 @@ Simulaationäkymä, josta voidaan tarkastella eri sijoitustrategioiden kehityst�
 
 ### Simulaation tarkastelu
 
-- käyttäjä voi valita näytetäänkö viivakaaviossa simulaationäkymän graafissa kurssikehitys, eri strategioiden tuotto tai tuottoprosentti'
+- käyttäjä voi valita näytetäänkö viivakaaviossa simulaationäkymän graafissa kurssikehitys, eri strategioiden tuotto tai tuottoprosentti
   - myös tarkasteltava aikaväli on valittavissa
 - viivakaavion alla olevasta näkymästä näkyy sijoitustrategioiden tuotto ja arvo kurssikehityksen eri kohdissa
   - eri kohta valitaan viivakaaviota klikkaamalla
@@ -52,4 +52,4 @@ Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seura
 
 - kirjanpitoväline näillä strategioilla toteutettaville sijoituksille 
 
-- historiallisen datan tuominen simulaatioon tiedostosta tai suoraa Internetistä
+- historiallisen datan tuominen simulaatioon tiedostosta tai suoraan Internetistä
