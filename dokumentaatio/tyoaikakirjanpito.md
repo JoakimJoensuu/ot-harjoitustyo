@@ -8,4 +8,4 @@
 |	| 1	| käyttöliittymäluonnos 			|
 | 29.3.	| 5	| JavaFX:n tutustumista ja päävalikon tekoa	|
 |	| 4	| simulaation generaattorin tekemistä		|
-| yht   | 4	|						| 
+| yht   | 13	|						| 
