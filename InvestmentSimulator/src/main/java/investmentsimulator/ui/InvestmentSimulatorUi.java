@@ -12,12 +12,15 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.*;
+import investmentsimulator.domain.*;
 
 public class InvestmentSimulatorUi extends Application {
 
     private Scene mainMenu;
     private Scene simulationMenu;
     private Scene editMenu;
+
+    private InvestmentSimulatorService iSService = new InvestmentSimulatorService();
 
     public static void main(String[] args) {
         launch(args);
@@ -75,17 +78,30 @@ public class InvestmentSimulatorUi extends Application {
         ComboBox periodTypeField = new ComboBox();
         periodTypeField.getItems().add("Päivä");
         periodTypeField.getItems().add("Viikko");
+        periodTypeField.getItems().add("Kuukausi");
         periodTypeField.getItems().add("Vuosi");
         form.add(periodTypeField, 1, 3);
         TextField periodsField = new TextField();
         form.add(periodsField, 1, 4);
-        TextField variationField = new TextField();
+        Slider variationField = new Slider();
+        variationField.setMin(0);
+        variationField.setMax(100);
+        variationField.setValue(50);
+        variationField.setShowTickLabels(true);
+        variationField.setShowTickMarks(true);
+        variationField.setMajorTickUnit(50);
+        variationField.setMinorTickCount(4);
+        variationField.setBlockIncrement(10);
         form.add(variationField, 1, 5);
 
         Button createManually = new Button("Luo manuaalisesti");
         form.add(createManually, 1, 6);
         Button generate = new Button("Generoi");
         form.add(generate, 1, 7);
+
+        generate.setOnAction((event) -> {
+            iSService.GenerateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue());
+        });
 
         return form;
     }
