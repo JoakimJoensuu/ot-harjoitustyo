@@ -8,14 +8,17 @@ public class Simulation {
     private LocalDate[] dates;
     private int[] cAValues;
     private double[] cAShares;
+    private int[] cAPurchases;
     private int[] vAValues;
-    private double[] vASahares;
+    private double[] vAShares;
+    private int[] vAPurchases;
     private int[] prices;
 
     Simulation(int sum, LocalDate startingDate, String periodType, int amountOfPeriods, double variation) {
         datesCreator(startingDate, amountOfPeriods, periodType);
         generatePrices(variation / 100, amountOfPeriods);
         createCAValuesAndShares(amountOfPeriods, sum);
+        createVAValuesAndShares(amountOfPeriods, sum);
     }
 
     private void datesCreator(LocalDate startingDate, int amountOfPeriods, String periodType) {
@@ -35,7 +38,6 @@ public class Simulation {
         dates[0] = startingDate;
         for (int i = 1; i < dates.length; i++) {
             dates[i] = dates[i - 1].plusDays(1);
-
         }
     }
 
@@ -76,23 +78,102 @@ public class Simulation {
     private void createCAValuesAndShares(int amountOfPeriods, int sum) {
         cAShares = new double[amountOfPeriods + 1];
         cAValues = new int[amountOfPeriods + 1];
-
+        cAPurchases = new int[amountOfPeriods + 1];
         cAShares[0] = ((double) sum / prices[0]);
         cAValues[0] = roundToInt(prices[0] * cAShares[0]);
-
+        cAPurchases[0] = sum;
         for (int i = 1; i < cAValues.length; i++) {
             cAShares[i] = cAShares[i - 1] + ((double) sum / prices[i]);
             cAValues[i] = roundToInt(prices[i] * cAShares[i]);
+            cAPurchases[i] = sum;
         }
+    }
 
-        for (int i = 0; i < cAShares.length; i++) {
-            System.out.println("Price: " + prices[i]);
-            System.out.println("Arvo: " + cAValues[i]);
-            System.out.println("Osat: " + cAShares[i]);
+    private void createVAValuesAndShares(int amountOfPeriods, int sum) {
+        vAShares = new double[amountOfPeriods + 1];
+        vAValues = new int[amountOfPeriods + 1];
+        vAPurchases = new int[amountOfPeriods + 1];
+        vAShares[0] = (double) sum / prices[0];
+        vAValues[0] = roundToInt(prices[0] * vAShares[0]);
+        vAPurchases[0] = sum;
+        for (int i = 1; i < vAShares.length; i++) {
+            int buyingSum = roundToInt(((i + 1) * sum - ((double) vAShares[i - 1] * prices[i])));
+            vAShares[i] = vAShares[i - 1] + ((double) buyingSum / prices[i]);
+            vAValues[i] = roundToInt(prices[i] * vAShares[i]);
+            vAPurchases[i] = buyingSum;
         }
     }
 
     private int roundToInt(double d) {
         return (int) Math.round(d);
     }
+
+    public LocalDate[] getDates() {
+        return dates;
+    }
+
+    public void setDates(LocalDate[] dates) {
+        this.dates = dates;
+    }
+
+    public int[] getcAValues() {
+        return cAValues;
+    }
+
+    public void setcAValues(int[] cAValues) {
+        this.cAValues = cAValues;
+    }
+
+    public double[] getcAShares() {
+        return cAShares;
+    }
+
+    public void setcAShares(double[] cAShares) {
+        this.cAShares = cAShares;
+    }
+
+    public int[] getcAPurchases() {
+        return cAPurchases;
+    }
+
+    public void setcAPurchases(int[] cAPurchases) {
+        this.cAPurchases = cAPurchases;
+    }
+
+    public int[] getvAValues() {
+        return vAValues;
+    }
+
+    public void setvAValues(int[] vAValues) {
+        this.vAValues = vAValues;
+    }
+
+    public double[] getvAShares() {
+        return vAShares;
+    }
+
+    public void setvAShares(double[] vAShares) {
+        this.vAShares = vAShares;
+    }
+
+    public int[] getvAPurchases() {
+        return vAPurchases;
+    }
+
+    public void setvAPurchases(int[] vAPurchases) {
+        this.vAPurchases = vAPurchases;
+    }
+
+    public int[] getPrices() {
+        return prices;
+    }
+
+    public void setPrices(int[] prices) {
+        this.prices = prices;
+    }
+    
+    
+    
 }
+
+
