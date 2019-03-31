@@ -6,19 +6,19 @@ import java.util.*;
 public class Simulation {
 
     private LocalDate[] dates;
-    private int[] cAValues;
-    private double[] cAShares;
-    private int[] cAPurchases;
-    private int[] vAValues;
-    private double[] vAShares;
-    private int[] vAPurchases;
+    private int[] costAverageValues;
+    private double[] costAverageShares;
+    private int[] costAveragePurchases;
+    private int[] valueAverageValues;
+    private double[] valueAverageShares;
+    private int[] valueAveragePurchases;
     private int[] prices;
 
-    Simulation(int sum, LocalDate startingDate, String periodType, int amountOfPeriods, double variation) {
+    public Simulation(int sum, LocalDate startingDate, String periodType, int amountOfPeriods, double variation) {
         datesCreator(startingDate, amountOfPeriods, periodType);
         generatePrices(variation / 100, amountOfPeriods);
-        createCAValuesAndShares(amountOfPeriods, sum);
-        createVAValuesAndShares(amountOfPeriods, sum);
+        createCostAverageValuesAndShares(amountOfPeriods, sum);
+        createValueAverageValuesAndShares(amountOfPeriods, sum);
     }
 
     private void datesCreator(LocalDate startingDate, int amountOfPeriods, String periodType) {
@@ -75,36 +75,36 @@ public class Simulation {
         }
     }
 
-    private void createCAValuesAndShares(int amountOfPeriods, int sum) {
-        cAShares = new double[amountOfPeriods + 1];
-        cAValues = new int[amountOfPeriods + 1];
-        cAPurchases = new int[amountOfPeriods + 1];
-        cAShares[0] = ((double) sum / prices[0]);
-        cAValues[0] = roundToInt(prices[0] * cAShares[0]);
-        cAPurchases[0] = sum;
-        for (int i = 1; i < cAValues.length; i++) {
-            cAShares[i] = cAShares[i - 1] + ((double) sum / prices[i]);
-            cAValues[i] = roundToInt(prices[i] * cAShares[i]);
-            cAPurchases[i] = sum;
+    private void createCostAverageValuesAndShares(int amountOfPeriods, int sum) {
+        costAverageShares = new double[amountOfPeriods + 1];
+        costAverageValues = new int[amountOfPeriods + 1];
+        costAveragePurchases = new int[amountOfPeriods + 1];
+        costAverageShares[0] = ((double) sum / prices[0]);
+        costAverageValues[0] = roundToInt(prices[0] * costAverageShares[0]);
+        costAveragePurchases[0] = sum;
+        for (int i = 1; i < costAverageValues.length; i++) {
+            costAverageShares[i] = costAverageShares[i - 1] + ((double) sum / prices[i]);
+            costAverageValues[i] = roundToInt(prices[i] * costAverageShares[i]);
+            costAveragePurchases[i] = sum;
         }
     }
 
-    private void createVAValuesAndShares(int amountOfPeriods, int sum) {
-        vAShares = new double[amountOfPeriods + 1];
-        vAValues = new int[amountOfPeriods + 1];
-        vAPurchases = new int[amountOfPeriods + 1];
-        vAShares[0] = (double) sum / prices[0];
-        vAValues[0] = roundToInt(prices[0] * vAShares[0]);
-        vAPurchases[0] = sum;
-        for (int i = 1; i < vAShares.length; i++) {
-            int buyingSum = roundToInt(((i + 1) * sum - ((double) vAShares[i - 1] * prices[i])));
-            vAShares[i] = vAShares[i - 1] + ((double) buyingSum / prices[i]);
-            vAValues[i] = roundToInt(prices[i] * vAShares[i]);
-            vAPurchases[i] = buyingSum;
+    private void createValueAverageValuesAndShares(int amountOfPeriods, int sum) {
+        valueAverageShares = new double[amountOfPeriods + 1];
+        valueAverageValues = new int[amountOfPeriods + 1];
+        valueAveragePurchases = new int[amountOfPeriods + 1];
+        valueAverageShares[0] = (double) sum / prices[0];
+        valueAverageValues[0] = roundToInt(prices[0] * valueAverageShares[0]);
+        valueAveragePurchases[0] = sum;
+        for (int i = 1; i < valueAverageShares.length; i++) {
+            int buyingSum = roundToInt(((i + 1) * sum - ((double) valueAverageShares[i - 1] * prices[i])));
+            valueAverageShares[i] = valueAverageShares[i - 1] + ((double) buyingSum / prices[i]);
+            valueAverageValues[i] = roundToInt(prices[i] * valueAverageShares[i]);
+            valueAveragePurchases[i] = buyingSum;
         }
     }
 
-    private int roundToInt(double d) {
+    public int roundToInt(double d) {
         return (int) Math.round(d);
     }
 
@@ -116,52 +116,52 @@ public class Simulation {
         this.dates = dates;
     }
 
-    public int[] getcAValues() {
-        return cAValues;
+    public int[] getCostAverageValues() {
+        return costAverageValues;
     }
 
-    public void setcAValues(int[] cAValues) {
-        this.cAValues = cAValues;
+    public void setCostAverageValues(int[] costAverageValues) {
+        this.costAverageValues = costAverageValues;
     }
 
-    public double[] getcAShares() {
-        return cAShares;
+    public double[] getCostAverageShares() {
+        return costAverageShares;
     }
 
-    public void setcAShares(double[] cAShares) {
-        this.cAShares = cAShares;
+    public void setCostAverageShares(double[] costAverageShares) {
+        this.costAverageShares = costAverageShares;
     }
 
-    public int[] getcAPurchases() {
-        return cAPurchases;
+    public int[] getCostAveragePurchases() {
+        return costAveragePurchases;
     }
 
-    public void setcAPurchases(int[] cAPurchases) {
-        this.cAPurchases = cAPurchases;
+    public void setCostAveragePurchases(int[] costAveragePurchases) {
+        this.costAveragePurchases = costAveragePurchases;
     }
 
-    public int[] getvAValues() {
-        return vAValues;
+    public int[] getValueAverageValues() {
+        return valueAverageValues;
     }
 
-    public void setvAValues(int[] vAValues) {
-        this.vAValues = vAValues;
+    public void setValueAverageValues(int[] valueAverageValues) {
+        this.valueAverageValues = valueAverageValues;
     }
 
-    public double[] getvAShares() {
-        return vAShares;
+    public double[] getValueAverageShares() {
+        return valueAverageShares;
     }
 
-    public void setvAShares(double[] vAShares) {
-        this.vAShares = vAShares;
+    public void setValueAverageShares(double[] valueAverageShares) {
+        this.valueAverageShares = valueAverageShares;
     }
 
-    public int[] getvAPurchases() {
-        return vAPurchases;
+    public int[] getValueAveragePurchases() {
+        return valueAveragePurchases;
     }
 
-    public void setvAPurchases(int[] vAPurchases) {
-        this.vAPurchases = vAPurchases;
+    public void setValueAveragePurchases(int[] valueAveragePurchases) {
+        this.valueAveragePurchases = valueAveragePurchases;
     }
 
     public int[] getPrices() {
@@ -171,9 +171,4 @@ public class Simulation {
     public void setPrices(int[] prices) {
         this.prices = prices;
     }
-    
-    
-    
 }
-
-
