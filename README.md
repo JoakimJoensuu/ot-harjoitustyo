@@ -8,4 +8,38 @@ Repositorio Helsingin Yliopiston Ohjelmistotekniikka-kurssin palautuksille
 
 [Työaikakirjanpito](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
+## Komentorivitoiminnot
+
+### Testaus
+
+Testit suoritetaan ohjelman juurikansiosta komennolla
+
+```
+mvn test
+```
+
+Testikattavuusraportti luodaan ohjelman juurikansiosta komennolla
+
+```
+mvn test jacoco:report
+```
+
+Raportti löytyy tiedostosta _ot-harjoitustyo/InvestmentSimulator/target/site/jacoco/index.html_
+
+### Ohjelman suorittaminen
+
+Ohjelma voidaan suorittaa ohjelman juurikansiosta komennolla
+
+```
+mvn compile exec:java -Dexec.mainClass=investmentsimulator.ui.InvestmentSimulatorUi
+```
+
+### Jar-tiedoston luominen ja suorittaminen
+
+Jar tiedosto luodaan ja suoritetaan repostitorion juuresta seuraavilla komennoilla:
+
+TODO
+
+
+
 

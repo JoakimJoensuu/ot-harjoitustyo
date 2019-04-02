@@ -21,7 +21,7 @@ public class Simulation {
     private int[] valueAverageInvested;
 
     public Simulation() {
-
+        
     }
 
     public void initializeSimulation(int sum, LocalDate startingDate, String periodType, int amountOfPeriods, double variation) {

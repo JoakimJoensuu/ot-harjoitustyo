@@ -72,7 +72,7 @@ public class InvestmentSimulatorUi extends Application {
         newText.setFont(Font.font("Calibri", FontWeight.NORMAL, 20));
         form.add(newText, 0, 0, 2, 1);
 
-        Label sum = new Label("Summa:");
+        Label sum = new Label("Periodeittain sijtoitettava summa:");
         form.add(sum, 0, 1);
         Label startDate = new Label("Alkupäivä:");
         form.add(startDate, 0, 2);
