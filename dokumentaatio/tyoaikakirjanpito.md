@@ -9,4 +9,7 @@
 | 29.3.	| 5	| JavaFX:n tutustumista ja päävalikon tekoa	|
 |	| 4	| simulaation generaattorin tekemistä		|
 |	| 1	| testien luomista Simulaatio-luokalle		|
-| yht   | 13	|						| 
+| 1.4.	| 5	| sovelluslogiikan tekemistä		|
+| 2.4.	| 5	| Päävalikon viimeistely ja simulaationäkymän teko		|
+|	| 2	| Simulaationäkymän ja sovelluslogiikan yhteenviilaaminen	|
+| yht   | 31	|						| 
