@@ -12,4 +12,5 @@
 | 1.4.	| 5	| sovelluslogiikan tekemistä		|
 | 2.4.	| 5	| Päävalikon viimeistely ja simulaationäkymän teko		|
 |	| 2	| Simulaationäkymän ja sovelluslogiikan yhteenviilaaminen	|
-| yht   | 31	|						| 
+|	| 1	| suoritettavan Jar-tiedoston ja testikattavuusraporttien luominen tehty mahdolliseksi ja komennot lisätty README-tiedostoon	|	
+| yht   | 32	|						| 
