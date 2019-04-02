@@ -25,7 +25,7 @@ Testikattavuusraportti luodaan komennolla
 mvn jacoco:report
 ```
 
-Raportti löytyy tiedostosta _ot-harjoitustyo/InvestmentSimulator/target/site/jacoco/index.html_
+Raportti löytyy tiedostosta _ot-harjoitustyo/target/site/jacoco/index.html_
 
 
 ### Ohjelman suorittaminen
