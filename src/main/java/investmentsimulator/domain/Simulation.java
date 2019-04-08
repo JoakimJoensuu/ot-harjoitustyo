@@ -19,14 +19,39 @@ public class Simulation {
     private double[] costAverageROI;
     private int[] costAverageInvested;
     private int[] valueAverageInvested;
+    private String name;
+    private int amountOfPeriods;
+    private int sum;
+    private LocalDate startingDate;
+    private String periodType;
+    private int id;
 
     public Simulation() {
-        
+
     }
 
-    public void initializeSimulation(int sum, LocalDate startingDate, String periodType, int amountOfPeriods, double variation) {
-        this.dates = datesCreator(startingDate, amountOfPeriods, periodType);
+    public void initializeSimulation(String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods, double variation) {
+        this.id = -1;
+        this.name = name;
+        this.amountOfPeriods = amountOfPeriods;
+        this.sum = sum;
+        this.periodType = periodType;
+        this.startingDate = startingDate;
         this.prices = generatePrices(variation / 100, amountOfPeriods);
+        initializeArrays();
+    }
+
+    public void setSimulationDetails(int id, String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods) {
+        this.id = id;
+        this.name = name;
+        this.amountOfPeriods = amountOfPeriods;
+        this.sum = sum;
+        this.periodType = periodType;
+        this.startingDate = startingDate;
+    }
+
+    public void initializeArrays() {
+        this.dates = datesCreator(startingDate, amountOfPeriods, periodType);
         this.costAverageShares = generateCostAverageShares(prices, sum, amountOfPeriods);
         this.valueAverageShares = generateValueAverageShares(prices, sum, amountOfPeriods);
         this.costAverageValues = generateCostAverageValues(prices, costAverageShares);
@@ -401,6 +426,54 @@ public class Simulation {
 
     public void setValueAverageInvested(int[] valueAverageInvested) {
         this.valueAverageInvested = valueAverageInvested;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAmountOfPeriods() {
+        return amountOfPeriods;
+    }
+
+    public void setAmountOfPeriods(int amountOfPeriods) {
+        this.amountOfPeriods = amountOfPeriods;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
+    public LocalDate getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(LocalDate startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    public String getPeriodType() {
+        return periodType;
+    }
+
+    public void setPeriodType(String periodType) {
+        this.periodType = periodType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

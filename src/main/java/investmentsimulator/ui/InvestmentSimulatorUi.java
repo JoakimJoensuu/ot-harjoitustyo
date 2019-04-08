@@ -13,9 +13,12 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.*;
 import investmentsimulator.domain.*;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import javafx.event.EventHandler;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -32,10 +35,17 @@ public class InvestmentSimulatorUi extends Application {
     private BorderPane simulationLayout;
     private GridPane infoBelowChart;
 
-    private InvestmentSimulatorService iSService = new InvestmentSimulatorService();
+    private VBox simulationNodes;
+
+    private InvestmentSimulatorService iSService;
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void init() throws SQLException {
+        this.iSService = new InvestmentSimulatorService();
     }
 
     @Override
@@ -53,11 +63,11 @@ public class InvestmentSimulatorUi extends Application {
         GridPane simulationForm = createSimulationForm();
         simulationForm.setAlignment(Pos.CENTER_LEFT);
 
-        VBox savedSimulations = createSavedSimulationsList();
-        savedSimulations.setAlignment(Pos.CENTER_RIGHT);
+        ScrollPane savedSimulations = createSavedSimulationsList();
 
-        HBox layout = new HBox(simulationForm, savedSimulations);
-        layout.setAlignment(Pos.CENTER);
+        BorderPane layout = new BorderPane();
+        layout.setLeft(simulationForm);
+        layout.setCenter(savedSimulations);
 
         return mainMenu = new Scene(layout, 1920, 1080);
     }
@@ -114,20 +124,52 @@ public class InvestmentSimulatorUi extends Application {
         generate.setOnAction((event) -> {
             iSService.GenerateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue());
             showSimulation();
-
         });
 
         return form;
     }
 
-    private VBox createSavedSimulationsList() {
+    private ScrollPane createSavedSimulationsList() {
         Text loadLabel = new Text("Lataa simulaatio");
         loadLabel.setFont(Font.font("Calibri", FontWeight.NORMAL, 20));
 
+        simulationNodes = new VBox(10);
+        simulationNodes.setMaxWidth(300);
+        simulationNodes.setMinWidth(300);
+        simulationNodes.setMaxHeight(500);
+        simulationNodes.setMinHeight(500);
+        redrawSimulationslist();
+
         ScrollPane listOfSimulations = new ScrollPane();
-        Button delete = new Button("Poista");
-        Button load = new Button("Lataa");
-        return new VBox(loadLabel, listOfSimulations, delete, load);
+        listOfSimulations.setContent(simulationNodes);
+        return listOfSimulations;
+    }
+
+    public void redrawSimulationslist() {
+        simulationNodes.getChildren().clear();
+
+        List<Simulation> savedSimulations = iSService.getSavedSimulations();
+        savedSimulations.forEach(simulation -> {
+            simulationNodes.getChildren().add(createSimulationNode(simulation));
+        });
+    }
+
+    public Node createSimulationNode(Simulation simulation) {
+        HBox box = new HBox(10);
+        Label label = new Label(simulation.getName());
+        label.setMinHeight(28);
+        Button button = new Button("Lataa");
+        button.setOnAction(e -> {
+            iSService.setLoadedSimulationSelected(simulation);
+            showSimulation();
+        });
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        box.setPadding(new Insets(0, 5, 0, 5));
+
+        box.getChildren().addAll(label, spacer, button);
+        return box;
     }
 
     private Scene initializeSimulationMenu() {
@@ -155,11 +197,6 @@ public class InvestmentSimulatorUi extends Application {
         return chart;
     }
 
-    private Scene initializeEditMenu() {
-        //TODO
-        return null;
-    }
-
     private void showSimulation() {
         DecimalFormat df = new DecimalFormat("#%");
         LineChart<String, Number> simulationChart = createSimulationChart();
@@ -172,6 +209,27 @@ public class InvestmentSimulatorUi extends Application {
         back.setOnAction((event) -> {
             stage.setScene(mainMenu);
         });
+        TextField simulationName = new TextField();
+        simulationName.setText(iSService.getSelectedSimulation().getName());
+        Label errorLabel = new Label();
+        Button save = new Button("Tallenna");
+
+        save.setOnAction((event) -> {
+            if (simulationName.getText() != null && simulationName.getText().length() > 0) {
+                try {
+                    iSService.saveSimulation(simulationName.getText());
+                    redrawSimulationslist();
+                } catch (SQLException ex) {
+                    Logger.getLogger(InvestmentSimulatorUi.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                errorLabel.setText("");
+                simulationName.clear();
+            } else {
+                errorLabel.setText("Tässä pitäisi olla tekstiä");
+
+            }
+        });
+
         Label invested = new Label("Investoitu");
         Label ROI = new Label("Tuottoprosentti");
         Label Profit = new Label("Tuotto");
@@ -207,6 +265,9 @@ public class InvestmentSimulatorUi extends Application {
         infoBelowChart.add(costAveragingProfit, 3, 1);
         infoBelowChart.add(costAveragingAmountToInvest, 4, 1);
         infoBelowChart.add(currentPrice, 5, 1);
+        infoBelowChart.add(simulationName, 6, 2);
+        infoBelowChart.add(save, 6, 3);
+        infoBelowChart.add(errorLabel, 7, 2);
 
         final Axis<String> xAxis = simulationChart.getXAxis();
 
@@ -216,41 +277,50 @@ public class InvestmentSimulatorUi extends Application {
         });
 
         chartBackground.setOnMouseMoved((MouseEvent mouseEvent) -> {
-            dateFromChart.setText(xAxis.getValueForDisplay(mouseEvent.getX()));
-            LocalDate date = LocalDate.parse(dateFromChart.getText());
-            int index = selectedSimulation.getIndexOfTheDate(date);
+            if (xAxis.getValueForDisplay(mouseEvent.getX()) != null) {
+                dateFromChart.setText(xAxis.getValueForDisplay(mouseEvent.getX()));
+                LocalDate date = LocalDate.parse(dateFromChart.getText());
+                int index = selectedSimulation.getIndexOfTheDate(date);
 
-            valueAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageInvested()[index]));
-            valueAveragingROI.setText("" + selectedSimulation.getValueAverageROI()[index]);
-            valueAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageProfit()[index]));
-            valueAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAveragePurchases()[index]));
-            costAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageInvested()[index]));
-            costAveragingROI.setText("" + selectedSimulation.getCostAverageROI()[index]);
-            costAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageProfit()[index]));
-            costAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAveragePurchases()[index]));
-            currentPrice.setText(selectedSimulation.centsToEuroString(selectedSimulation.getPrices()[index]));
+                valueAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageInvested()[index]));
+                valueAveragingROI.setText("" + selectedSimulation.getValueAverageROI()[index]);
+                valueAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageProfit()[index]));
+                valueAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAveragePurchases()[index]));
+                costAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageInvested()[index]));
+                costAveragingROI.setText("" + selectedSimulation.getCostAverageROI()[index]);
+                costAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageProfit()[index]));
+                costAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAveragePurchases()[index]));
+                currentPrice.setText(selectedSimulation.centsToEuroString(selectedSimulation.getPrices()[index]));
+            }
         });
 
         xAxis.setOnMouseMoved((MouseEvent mouseEvent) -> {
-            dateFromChart.setText(xAxis.getValueForDisplay(mouseEvent.getX()));
 
-            LocalDate date = LocalDate.parse(dateFromChart.getText());
-            int index = selectedSimulation.getIndexOfTheDate(date);
+            if (xAxis.getValueForDisplay(mouseEvent.getX()) != null) {
+                dateFromChart.setText(xAxis.getValueForDisplay(mouseEvent.getX()));
+                LocalDate date = LocalDate.parse(dateFromChart.getText());
+                int index = selectedSimulation.getIndexOfTheDate(date);
 
-            valueAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageInvested()[index]));
-            valueAveragingROI.setText("" + selectedSimulation.getValueAverageROI()[index]);
-            valueAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageProfit()[index]));
-            valueAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAveragePurchases()[index]));
-            costAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageInvested()[index]));
-            costAveragingROI.setText("" + selectedSimulation.getCostAverageROI()[index]);
-            costAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageProfit()[index]));
-            costAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAveragePurchases()[index]));
-            currentPrice.setText(selectedSimulation.centsToEuroString(selectedSimulation.getPrices()[index]));
+                valueAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageInvested()[index]));
+                valueAveragingROI.setText("" + selectedSimulation.getValueAverageROI()[index]);
+                valueAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageProfit()[index]));
+                valueAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAveragePurchases()[index]));
+                costAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageInvested()[index]));
+                costAveragingROI.setText("" + selectedSimulation.getCostAverageROI()[index]);
+                costAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageProfit()[index]));
+                costAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAveragePurchases()[index]));
+                currentPrice.setText(selectedSimulation.centsToEuroString(selectedSimulation.getPrices()[index]));
+            }
         });
 
         simulationLayout.setCenter(simulationChart);
         simulationLayout.setBottom(infoBelowChart);
         stage.setScene(simulationMenu);
+    }
+
+    private Scene initializeEditMenu() {
+        //TODO
+        return null;
     }
 
 }
