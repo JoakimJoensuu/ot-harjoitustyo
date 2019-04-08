@@ -97,11 +97,11 @@ public class InvestmentSimulatorService {
 
     public void setLoadedSimulationSelected(Simulation simulation) {
         int[] prices = ListToArray(simulationDao.getSimulationPrices(simulation.getId()));
-        
+
         selectedSimulation = simulation;
         selectedSimulation.setPrices(prices);
         selectedSimulation.initializeArrays();
-      
+
     }
 
     public int[] ListToArray(List<Integer> list) {
