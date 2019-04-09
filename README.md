@@ -8,6 +8,8 @@ Repositorio Helsingin Yliopiston Ohjelmistotekniikka-kurssin palautuksille
 
 [Työaikakirjanpito](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
+[Arkkitehtuuri](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
 ## Komentorivitoiminnot
 
 
