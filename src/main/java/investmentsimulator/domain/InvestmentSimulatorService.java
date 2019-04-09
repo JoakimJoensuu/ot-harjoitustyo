@@ -15,12 +15,10 @@ import java.sql.SQLException;
 
 public class InvestmentSimulatorService {
 
-    private ArrayList<Simulation> simulations;
     private Simulation selectedSimulation;
-    private SimulationDao simulationDao;
+    private final SimulationDao simulationDao;
 
     public InvestmentSimulatorService() throws SQLException {
-        this.simulations = new ArrayList<>();
         this.simulationDao = new SimulationDao();
     }
 
@@ -35,7 +33,7 @@ public class InvestmentSimulatorService {
 //
 //        return details;
 //    }
-    public boolean GenerateSimulation(String sum, LocalDate startingDate, Object periodType, String amountOfPeriods, Double variance) {
+    public boolean generateSimulation(String sum, LocalDate startingDate, Object periodType, String amountOfPeriods, Double variance) {
         selectedSimulation = new Simulation();
 
         selectedSimulation.initializeSimulation("", Integer.parseInt(sum) * 100, startingDate, String.valueOf(periodType), Integer.parseInt(amountOfPeriods), variance);
@@ -96,7 +94,7 @@ public class InvestmentSimulatorService {
     }
 
     public void setLoadedSimulationSelected(Simulation simulation) {
-        int[] prices = ListToArray(simulationDao.getSimulationPrices(simulation.getId()));
+        int[] prices = listToArray(simulationDao.getSimulationPrices(simulation.getId()));
 
         selectedSimulation = simulation;
         selectedSimulation.setPrices(prices);
@@ -104,7 +102,7 @@ public class InvestmentSimulatorService {
 
     }
 
-    public int[] ListToArray(List<Integer> list) {
+    public int[] listToArray(List<Integer> list) {
         int[] array = new int[list.size()];
 
         for (int i = 0; i < array.length; i++) {

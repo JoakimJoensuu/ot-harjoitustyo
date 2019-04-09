@@ -122,7 +122,7 @@ public class InvestmentSimulatorUi extends Application {
         form.add(generate, 1, 7);
 
         generate.setOnAction((event) -> {
-            iSService.GenerateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue());
+            iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue());
             showSimulation();
         });
 
@@ -234,6 +234,7 @@ public class InvestmentSimulatorUi extends Application {
         Label ROI = new Label("Tuottoprosentti");
         Label Profit = new Label("Tuotto");
         Label amountToInvest = new Label("Sijoitettava tässä periodissa");
+        Label value = new Label("Arvo");
         Label valueAveragingInvested = new Label("");
         Label valueAveragingROI = new Label("");
         Label valueAveragingProfit = new Label("");
@@ -242,7 +243,10 @@ public class InvestmentSimulatorUi extends Application {
         Label costAveragingROI = new Label("");
         Label costAveragingProfit = new Label("");
         Label costAveragingAmountToInvest = new Label("");
-        Label currentPrice = new Label();
+
+        Label valueAveragingValue = new Label("");
+        Label costAveragingValue = new Label("");
+        Label currentPrice = new Label("");
 
         this.infoBelowChart = new GridPane();
         infoBelowChart.setHgap(50);
@@ -256,18 +260,21 @@ public class InvestmentSimulatorUi extends Application {
         infoBelowChart.add(ROI, 2, 0);
         infoBelowChart.add(Profit, 3, 0);
         infoBelowChart.add(amountToInvest, 4, 0);
+        infoBelowChart.add(value, 5, 0);
         infoBelowChart.add(valueAveragingInvested, 1, 2);
         infoBelowChart.add(valueAveragingROI, 2, 2);
         infoBelowChart.add(valueAveragingProfit, 3, 2);
         infoBelowChart.add(valueAveragingAmountToInvest, 4, 2);
+        infoBelowChart.add(valueAveragingValue, 5, 2);
         infoBelowChart.add(costAveragingInvested, 1, 1);
         infoBelowChart.add(costAveragingROI, 2, 1);
         infoBelowChart.add(costAveragingProfit, 3, 1);
         infoBelowChart.add(costAveragingAmountToInvest, 4, 1);
-        infoBelowChart.add(currentPrice, 5, 1);
-        infoBelowChart.add(simulationName, 6, 2);
-        infoBelowChart.add(save, 6, 3);
-        infoBelowChart.add(errorLabel, 7, 2);
+        infoBelowChart.add(costAveragingValue, 5, 1);
+        infoBelowChart.add(currentPrice, 6, 1);
+        infoBelowChart.add(simulationName, 7, 2);
+        infoBelowChart.add(save, 7, 3);
+        infoBelowChart.add(errorLabel, 8, 2);
 
         final Axis<String> xAxis = simulationChart.getXAxis();
 
@@ -286,10 +293,12 @@ public class InvestmentSimulatorUi extends Application {
                 valueAveragingROI.setText("" + selectedSimulation.getValueAverageROI()[index]);
                 valueAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageProfit()[index]));
                 valueAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAveragePurchases()[index]));
+                valueAveragingValue.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageValues()[index]));
                 costAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageInvested()[index]));
                 costAveragingROI.setText("" + selectedSimulation.getCostAverageROI()[index]);
                 costAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageProfit()[index]));
                 costAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAveragePurchases()[index]));
+                costAveragingValue.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageValues()[index]));
                 currentPrice.setText(selectedSimulation.centsToEuroString(selectedSimulation.getPrices()[index]));
             }
         });
@@ -305,10 +314,12 @@ public class InvestmentSimulatorUi extends Application {
                 valueAveragingROI.setText("" + selectedSimulation.getValueAverageROI()[index]);
                 valueAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageProfit()[index]));
                 valueAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAveragePurchases()[index]));
+                valueAveragingValue.setText(selectedSimulation.centsToEuroString(selectedSimulation.getValueAverageValues()[index]));
                 costAveragingInvested.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageInvested()[index]));
                 costAveragingROI.setText("" + selectedSimulation.getCostAverageROI()[index]);
                 costAveragingProfit.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageProfit()[index]));
                 costAveragingAmountToInvest.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAveragePurchases()[index]));
+                costAveragingValue.setText(selectedSimulation.centsToEuroString(selectedSimulation.getCostAverageValues()[index]));
                 currentPrice.setText(selectedSimulation.centsToEuroString(selectedSimulation.getPrices()[index]));
             }
         });

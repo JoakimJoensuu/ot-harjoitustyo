@@ -236,30 +236,30 @@ public class Simulation {
     }
 
     public double[] generateROI(int[] profit, int[] purchases) {
-        double[] ROIs = new double[profit.length];
+        double[] rois = new double[profit.length];
 
         int totalMoneyInvested = 0;
 
-        for (int i = 1; i < ROIs.length; i++) {
+        for (int i = 1; i < rois.length; i++) {
             if (purchases[i - 1] >= 0) {
                 totalMoneyInvested += purchases[i - 1];
             }
 
-            double ROI = (double) profit[i] / totalMoneyInvested * 100;
-            double RoundedROI = roundToNDecimals(ROI, 2);
+            double roi = (double) profit[i] / totalMoneyInvested * 100;
+            double roundedROI = roundToNDecimals(roi, 2);
 
-            ROIs[i] = RoundedROI;
+            rois[i] = roundedROI;
 
         }
 
-        return ROIs;
+        return rois;
     }
 
     private int[] generateInvested(int[] purchases) {
         int[] generatedInvested = new int[purchases.length];
 
         for (int i = 1; i < generatedInvested.length; i++) {
-            generatedInvested[i] = purchases[i] + generatedInvested[i - 1];
+            generatedInvested[i] = purchases[i - 1] + generatedInvested[i - 1];
 
         }
 
@@ -290,190 +290,96 @@ public class Simulation {
     }
 
     public String centsToEuroString(int money) {
-        String moneyString = "" + money;
-
         String accidental = "";
-        if (moneyString.substring(0, 1).equals("-")) {
-            moneyString = moneyString.substring(1, moneyString.length());
+        if (money < 0) {
             accidental = "-";
+            money *= -1;
         }
+        int euros = money / 100;
 
-        String euros = "0";
-
-        if (moneyString.length() > 2) {
-            euros = moneyString.substring(0, moneyString.length() - 2);
-        }
-        String cents = "";
-        if (moneyString.length() > 1) {
-            cents = moneyString.substring(moneyString.length() - 2, moneyString.length());
-        } else if (moneyString.length() == 1) {
-            cents = "0" + moneyString;
-        } else {
-            cents = "00";
-        }
+        String cents = String.format("%02d", money % 100);
 
         return accidental + euros + "," + cents + " €";
-
     }
 
     public LocalDate[] getDates() {
         return dates;
     }
 
-    public void setDates(LocalDate[] dates) {
-        this.dates = dates;
-    }
-
-    public int[] getPrices() {
-        return prices;
-    }
-
-    public void setPrices(int[] prices) {
-        this.prices = prices;
-    }
-
     public int[] getCostAverageValues() {
         return costAverageValues;
-    }
-
-    public void setCostAverageValues(int[] costAverageValues) {
-        this.costAverageValues = costAverageValues;
-    }
-
-    public double[] getCostAverageShares() {
-        return costAverageShares;
-    }
-
-    public void setCostAverageShares(double[] costAverageShares) {
-        this.costAverageShares = costAverageShares;
-    }
-
-    public int[] getCostAveragePurchases() {
-        return costAveragePurchases;
-    }
-
-    public void setCostAveragePurchases(int[] costAveragePurchases) {
-        this.costAveragePurchases = costAveragePurchases;
-    }
-
-    public int[] getCostAverageProfit() {
-        return costAverageProfit;
-    }
-
-    public void setCostAverageProfit(int[] costAverageProfit) {
-        this.costAverageProfit = costAverageProfit;
     }
 
     public int[] getValueAverageValues() {
         return valueAverageValues;
     }
 
-    public void setValueAverageValues(int[] valueAverageValues) {
-        this.valueAverageValues = valueAverageValues;
-    }
-
-    public double[] getValueAverageShares() {
-        return valueAverageShares;
-    }
-
-    public void setValueAverageShares(double[] valueAverageShares) {
-        this.valueAverageShares = valueAverageShares;
-    }
-
-    public int[] getValueAveragePurchases() {
-        return valueAveragePurchases;
-    }
-
-    public void setValueAveragePurchases(int[] valueAveragePurchases) {
-        this.valueAveragePurchases = valueAveragePurchases;
-    }
-
-    public int[] getValueAverageProfit() {
-        return valueAverageProfit;
-    }
-
-    public void setValueAverageProfit(int[] valueAverageProfit) {
-        this.valueAverageProfit = valueAverageProfit;
-    }
-
     public double[] getValueAverageROI() {
         return valueAverageROI;
-    }
-
-    public void setValueAverageROI(double[] valueAverageROI) {
-        this.valueAverageROI = valueAverageROI;
     }
 
     public double[] getCostAverageROI() {
         return costAverageROI;
     }
 
-    public void setCostAverageROI(double[] costAverageROI) {
-        this.costAverageROI = costAverageROI;
-    }
-
-    public int[] getCostAverageInvested() {
-        return costAverageInvested;
-    }
-
-    public void setCostAverageInvested(int[] costAverageInvested) {
-        this.costAverageInvested = costAverageInvested;
-    }
-
-    public int[] getValueAverageInvested() {
-        return valueAverageInvested;
-    }
-
-    public void setValueAverageInvested(int[] valueAverageInvested) {
-        this.valueAverageInvested = valueAverageInvested;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAmountOfPeriods() {
-        return amountOfPeriods;
-    }
-
-    public void setAmountOfPeriods(int amountOfPeriods) {
-        this.amountOfPeriods = amountOfPeriods;
-    }
-
     public int getSum() {
         return sum;
-    }
-
-    public void setSum(int sum) {
-        this.sum = sum;
     }
 
     public LocalDate getStartingDate() {
         return startingDate;
     }
 
-    public void setStartingDate(LocalDate startingDate) {
-        this.startingDate = startingDate;
-    }
-
     public String getPeriodType() {
         return periodType;
     }
 
-    public void setPeriodType(String periodType) {
-        this.periodType = periodType;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int[] getPrices() {
+        return prices;
+    }
+
+    public int getAmountOfPeriods() {
+        return amountOfPeriods;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPrices(int[] prices) {
+        this.prices = prices;
     }
 
+    public int[] getCostAveragePurchases() {
+        return costAveragePurchases;
+    }
+
+    public int[] getCostAverageProfit() {
+        return costAverageProfit;
+    }
+
+    public int[] getValueAveragePurchases() {
+        return valueAveragePurchases;
+    }
+
+    public int[] getValueAverageProfit() {
+        return valueAverageProfit;
+    }
+
+    public int[] getCostAverageInvested() {
+        return costAverageInvested;
+    }
+
+    public int[] getValueAverageInvested() {
+        return valueAverageInvested;
+    }
+    
 }

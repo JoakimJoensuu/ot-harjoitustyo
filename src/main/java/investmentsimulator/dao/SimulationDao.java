@@ -29,25 +29,13 @@ public class SimulationDao {
     public void initDatabase() throws SQLException {
         Connection connection = connect();
         PreparedStatement createSimulationTable = connection.prepareStatement(
-                "CREATE TABLE IF NOT EXISTS simulation ("
-                + "id INTEGER PRIMARY KEY,"
-                + "name VARCHAR(100),"
-                + "sum INTEGER,"
-                + "startingDate DATE,"
-                + "periodType VARCHAR(10),"
-                + "amountOfPeriods INTEGER"
-                + ");"
+                "CREATE TABLE IF NOT EXISTS simulation (id INTEGER PRIMARY KEY,name VARCHAR(100),sum INTEGER,startingDate DATE,periodType VARCHAR(10),amountOfPeriods INTEGER);"
         );
         createSimulationTable.execute();
         createSimulationTable.close();
 
         PreparedStatement createPriceTable = connection.prepareStatement(
-                "CREATE TABLE IF NOT EXISTS price ("
-                + "simulation_id INTEGER,"
-                + "i INTEGER,"
-                + "price INTEGER,"
-                + "FOREIGN KEY(simulation_id) REFERENCES simulation(id)"
-                + ");"
+                "CREATE TABLE IF NOT EXISTS price (simulation_id INTEGER,i INTEGER,price INTEGER,FOREIGN KEY(simulation_id) REFERENCES simulation(id));"
         );
         createPriceTable.execute();
         createPriceTable.close();
