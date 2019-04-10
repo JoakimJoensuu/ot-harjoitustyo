@@ -14,4 +14,6 @@
 |	    | 2	    | Simulaationäkymän ja sovelluslogiikan yhteenviilaaminen	|
 |   	| 1	    | suoritettavan Jar-tiedoston ja testikattavuusraporttien luominen tehty mahdolliseksi ja komennot lisätty README-tiedostoon	|	
 | 8.4.  | 6     | tietokannan yhdistäminen sovellukseen, Daon luominen ja tallennus sekä latausmahdollisuuden luominen |  
-| yht   | 33	|						| 
+| 9.4.  | 1     | Checkstylen lisääminen ja sen havaitsemien virheiden korjaaminen |
+|       | 0.5   | Pakkauskaavion tekeminen      |
+| yht   | 34.5	|						| 
