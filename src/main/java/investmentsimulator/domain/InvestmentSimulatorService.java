@@ -22,17 +22,6 @@ public class InvestmentSimulatorService {
         this.simulationDao = new SimulationDao();
     }
 
-//    private HashMap<String, Object> parseForm(ObservableList<Node> form) {
-//        HashMap<String, Object> details = new HashMap<>();
-//
-//        details.put("sum", form.get(1));
-//        details.put("startingDate", form.get(2));
-//        details.put("periodType", form.get(3));
-//        details.put("amountOfPeriods", form.get(4));
-//        details.put("variance", form.get(5));
-//
-//        return details;
-//    }
     public boolean generateSimulation(String sum, LocalDate startingDate, Object periodType, String amountOfPeriods, Double variance) {
         selectedSimulation = new Simulation();
 

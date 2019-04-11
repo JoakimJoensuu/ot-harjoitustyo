@@ -46,17 +46,11 @@ mvn compile exec:java -Dexec.mainClass=investmentsimulator.ui.InvestmentSimulato
 Luodaan ohjelmasta jar-tiedosto
 
 ```
-mvn assembly:assembly -DdescriptorId=jar-with-dependencies
-```
-
-Merkitään tiedosto suoritettavaksi tiedostoksi
-
-```
-chmod +x target/InvestmentSimulator-1.0-SNAPSHOT-jar-with-dependencies.jar 
+mvn package
 ```
 
 Suoritetaan tiedosto
 
 ```
-java -jar target/InvestmentSimulator-1.0-SNAPSHOT-jar-with-dependencies.jar 
+java -jar target/InvestmentSimulator-1.0-SNAPSHOT.jar
 ```
