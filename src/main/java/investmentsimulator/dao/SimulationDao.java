@@ -21,8 +21,8 @@ public class SimulationDao {
 
     private String database;
 
-    public SimulationDao() throws SQLException {
-        this.database = "simulation.db";
+    public SimulationDao(String databaseName) throws SQLException {
+        this.database = databaseName;
         initDatabase();
     }
 

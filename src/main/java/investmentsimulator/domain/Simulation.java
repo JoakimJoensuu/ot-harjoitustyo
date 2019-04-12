@@ -381,5 +381,15 @@ public class Simulation {
     public int[] getValueAverageInvested() {
         return valueAverageInvested;
     }
+
+    public double[] getCostAverageShares() {
+        return costAverageShares;
+    }
+
+    public double[] getValueAverageShares() {
+        return valueAverageShares;
+    }
+
+    
     
 }

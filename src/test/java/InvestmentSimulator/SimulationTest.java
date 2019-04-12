@@ -234,4 +234,40 @@ public class SimulationTest {
         assertTrue(s.centsToEuroString(f).equals("1,11 €"));
     }
 
+    @Test
+    public void initializeArraysInitializesAllArrays() {
+        assertTrue(s.getDates() == null);
+        assertTrue(s.getCostAverageShares() == null);
+        assertTrue(s.getValueAverageShares() == null);
+        assertTrue(s.getCostAverageValues() == null);
+        assertTrue(s.getValueAverageValues() == null);
+        assertTrue(s.getValueAveragePurchases() == null);
+        assertTrue(s.getCostAveragePurchases() == null);
+        assertTrue(s.getCostAverageProfit() == null);
+        assertTrue(s.getValueAverageProfit() == null);
+        assertTrue(s.getCostAverageROI() == null);
+        assertTrue(s.getValueAverageROI() == null);
+        assertTrue(s.getValueAverageInvested() == null);
+        assertTrue(s.getCostAverageInvested() == null);
+        assertTrue(s.getPrices() == null);
+
+        s.initializeSimulation("name", 100, LocalDate.now(), "Viikko", 1, 30);
+
+        
+        assertTrue(s.getDates() != null);
+        assertTrue(s.getCostAverageShares() != null);
+        assertTrue(s.getValueAverageShares() != null);
+        assertTrue(s.getCostAverageValues() != null);
+        assertTrue(s.getValueAverageValues() != null);
+        assertTrue(s.getValueAveragePurchases() != null);
+        assertTrue(s.getCostAveragePurchases() != null);
+        assertTrue(s.getCostAverageProfit() != null);
+        assertTrue(s.getValueAverageProfit() != null);
+        assertTrue(s.getCostAverageROI() != null);
+        assertTrue(s.getValueAverageROI() != null);
+        assertTrue(s.getValueAverageInvested()!= null);
+        assertTrue(s.getCostAverageInvested() != null);
+        assertTrue(s.getPrices() != null);
+    }
+
 }

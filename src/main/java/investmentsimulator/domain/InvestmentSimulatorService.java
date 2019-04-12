@@ -19,7 +19,7 @@ public class InvestmentSimulatorService {
     private final SimulationDao simulationDao;
 
     public InvestmentSimulatorService() throws SQLException {
-        this.simulationDao = new SimulationDao();
+        this.simulationDao = new SimulationDao("simulation.db");
     }
 
     public boolean generateSimulation(String sum, LocalDate startingDate, Object periodType, String amountOfPeriods, Double variance) {
