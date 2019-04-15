@@ -11,9 +11,10 @@
 |   	| 1	    | testien luomista Simulaatio-luokalle		|
 | 1.4.	| 5	    | sovelluslogiikan tekemistä		|
 | 2.4.	| 5	    | Päävalikon viimeistely ja simulaationäkymän teko		|
-|	    | 2	    | Simulaationäkymän ja sovelluslogiikan yhteenviilaaminen	|
+|	| 2	    | Simulaationäkymän ja sovelluslogiikan yhteenviilaaminen	|
 |   	| 1	    | suoritettavan Jar-tiedoston ja testikattavuusraporttien luominen tehty mahdolliseksi ja komennot lisätty README-tiedostoon	|	
 | 8.4.  | 6     | tietokannan yhdistäminen sovellukseen, Daon luominen ja tallennus sekä latausmahdollisuuden luominen |  
 | 9.4.  | 1     | Checkstylen lisääminen ja sen havaitsemien virheiden korjaaminen |
 |       | 0.5   | Pakkauskaavion tekeminen      |
-| yht   | 34.5	|						| 
+| 15.4	| 3	| Luotu toiminnallisuus hintojen manuaaliselle lisäämiselle	|
+| yht   | 37.5	|						| 
