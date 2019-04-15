@@ -108,15 +108,13 @@ public class InvestmentSimulatorService {
 
         dates.addAll(Arrays.asList(selectedSimulation.getDates()));
 
-        System.out.println("PÄIVIÄ: " + dates.size());
-
         return dates;
     }
 
     public void setSimulationPrices(List<TextField> manualPrices) {
         int[] prices = new int[manualPrices.size()];
         for (int i = 0; i < prices.length; i++) {
-            prices[i] = Integer.parseInt(manualPrices.get(i).getText())*100;
+            prices[i] = Integer.parseInt(manualPrices.get(i).getText()) * 100;
         }
         selectedSimulation.setPrices(prices);
     }

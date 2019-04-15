@@ -120,7 +120,7 @@ public class InvestmentSimulatorUi extends Application {
         createManually.setOnAction((event) -> {
             iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), 0.0);
             redrawPriceslist();
-            System.out.println("priceNodes size: " + priceNodes.getChildren().size());
+
             stage.setScene(editMenu);
         });
 
@@ -386,8 +386,6 @@ public class InvestmentSimulatorUi extends Application {
 
         List<LocalDate> dates = iSService.getDates();
 
-        System.out.println("redrawPriceslist dates: " + dates.size());
-
         dates.forEach(date -> {
             priceNodes.getChildren().add(createPriceNode(date));
         });
@@ -395,13 +393,13 @@ public class InvestmentSimulatorUi extends Application {
 
     public Node createPriceNode(LocalDate date) {
         HBox box = new HBox(10);
-        
+
         Label label = new Label(date.toString());
         label.setMinHeight(28);
-        
+
         TextField priceField = new TextField();
         manualPrices.add(priceField);
-        
+
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         box.setPadding(new Insets(0, 5, 0, 5));
@@ -410,9 +408,7 @@ public class InvestmentSimulatorUi extends Application {
         euroLabel.setMinHeight(28);
 
         box.getChildren().addAll(label, spacer, priceField, euroLabel);
-        
-        
-        
+
         return box;
     }
 
