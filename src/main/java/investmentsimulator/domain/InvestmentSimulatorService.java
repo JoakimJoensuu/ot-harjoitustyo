@@ -12,6 +12,8 @@ import javafx.scene.*;
 import javafx.scene.chart.XYChart;
 import investmentsimulator.dao.*;
 import java.sql.SQLException;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 
 public class InvestmentSimulatorService {
 
@@ -99,5 +101,23 @@ public class InvestmentSimulatorService {
         }
 
         return array;
+    }
+
+    public List<LocalDate> getDates() {
+        List<LocalDate> dates = new ArrayList<>();
+
+        dates.addAll(Arrays.asList(selectedSimulation.getDates()));
+
+        System.out.println("PÄIVIÄ: " + dates.size());
+
+        return dates;
+    }
+
+    public void setSimulationPrices(List<TextField> manualPrices) {
+        int[] prices = new int[manualPrices.size()];
+        for (int i = 0; i < prices.length; i++) {
+            prices[i] = Integer.parseInt(manualPrices.get(i).getText())*100;
+        }
+        selectedSimulation.setPrices(prices);
     }
 }

@@ -16,13 +16,10 @@ import investmentsimulator.domain.*;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 import javafx.scene.chart.*;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.input.*;
 
 public class InvestmentSimulatorUi extends Application {
@@ -36,6 +33,8 @@ public class InvestmentSimulatorUi extends Application {
     private GridPane infoBelowChart;
 
     private VBox simulationNodes;
+    private VBox priceNodes;
+    private List<TextField> manualPrices;
 
     private InvestmentSimulatorService iSService;
 
@@ -69,7 +68,7 @@ public class InvestmentSimulatorUi extends Application {
         layout.setLeft(simulationForm);
         layout.setCenter(savedSimulations);
 
-        return mainMenu = new Scene(layout, 1920, 1080);
+        return new Scene(layout, 1600, 900);
     }
 
     private GridPane createSimulationForm() {
@@ -82,7 +81,7 @@ public class InvestmentSimulatorUi extends Application {
         newText.setFont(Font.font("Calibri", FontWeight.NORMAL, 20));
         form.add(newText, 0, 0, 2, 1);
 
-        Label sum = new Label("Periodeittain sijtoitettava summa:");
+        Label sum = new Label("Periodeittain sijoitettava summa:");
         form.add(sum, 0, 1);
         Label startDate = new Label("Alkupäivä:");
         form.add(startDate, 0, 2);
@@ -118,9 +117,15 @@ public class InvestmentSimulatorUi extends Application {
 
         Button createManually = new Button("Luo manuaalisesti");
         form.add(createManually, 1, 6);
+        createManually.setOnAction((event) -> {
+            iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), 0.0);
+            redrawPriceslist();
+            System.out.println("priceNodes size: " + priceNodes.getChildren().size());
+            stage.setScene(editMenu);
+        });
+
         Button generate = new Button("Generoi");
         form.add(generate, 1, 7);
-
         generate.setOnAction((event) -> {
             iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue());
             showSimulation();
@@ -136,8 +141,8 @@ public class InvestmentSimulatorUi extends Application {
         simulationNodes = new VBox(10);
         simulationNodes.setMaxWidth(300);
         simulationNodes.setMinWidth(300);
-        simulationNodes.setMaxHeight(500);
-        simulationNodes.setMinHeight(500);
+        simulationNodes.setMaxHeight(Integer.MAX_VALUE);
+        simulationNodes.setMinHeight(905);
         redrawSimulationslist();
 
         ScrollPane listOfSimulations = new ScrollPane();
@@ -177,7 +182,7 @@ public class InvestmentSimulatorUi extends Application {
 
         simulationLayout.setBottom(infoBelowChart);
 
-        return simulationMenu = new Scene(simulationLayout, 1920, 1080);
+        return simulationMenu = new Scene(simulationLayout, 1600, 900);
     }
 
     private LineChart<String, Number> createSimulationChart() {
@@ -330,8 +335,85 @@ public class InvestmentSimulatorUi extends Application {
     }
 
     private Scene initializeEditMenu() {
-        //TODO
-        return null;
+        ScrollPane priceForm = createPriceForm();
+        HBox editMenuButtons = createEditMenuButtons();
+
+        BorderPane layout = new BorderPane();
+
+        layout.setCenter(priceForm);
+        layout.setBottom(editMenuButtons);
+
+        return new Scene(layout, 1600, 900);
+    }
+
+    private ScrollPane createPriceForm() {
+        manualPrices = new ArrayList<>();
+
+        priceNodes = new VBox(10);
+        priceNodes.setMaxWidth(300);
+        priceNodes.setMinWidth(300);
+        priceNodes.setMaxHeight(Integer.MAX_VALUE);
+        priceNodes.setMinHeight(905);
+
+        ScrollPane listOfSimulations = new ScrollPane();
+        listOfSimulations.setContent(priceNodes);
+        return listOfSimulations;
+    }
+
+    private HBox createEditMenuButtons() {
+        Button back = new Button("Takaisin");
+        back.setOnAction((event) -> {
+            stage.setScene(mainMenu);
+        });
+
+        Button create = new Button("Luo");
+        create.setOnAction((event) -> {
+            iSService.setSimulationPrices(manualPrices);
+            iSService.getSelectedSimulation().initializeArrays();
+            showSimulation();
+        });
+
+        HBox buttons = new HBox(back, create);
+
+        buttons.setPadding(new Insets(10, 10, 10, 10));
+
+        return buttons;
+    }
+
+    private void redrawPriceslist() {
+        priceNodes.getChildren().clear();
+        manualPrices.clear();
+
+        List<LocalDate> dates = iSService.getDates();
+
+        System.out.println("redrawPriceslist dates: " + dates.size());
+
+        dates.forEach(date -> {
+            priceNodes.getChildren().add(createPriceNode(date));
+        });
+    }
+
+    public Node createPriceNode(LocalDate date) {
+        HBox box = new HBox(10);
+        
+        Label label = new Label(date.toString());
+        label.setMinHeight(28);
+        
+        TextField priceField = new TextField();
+        manualPrices.add(priceField);
+        
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        box.setPadding(new Insets(0, 5, 0, 5));
+
+        Label euroLabel = new Label("€");
+        euroLabel.setMinHeight(28);
+
+        box.getChildren().addAll(label, spacer, priceField, euroLabel);
+        
+        
+        
+        return box;
     }
 
 }
