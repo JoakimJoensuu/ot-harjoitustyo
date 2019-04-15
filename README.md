@@ -16,7 +16,7 @@ Sijoitussimulaattorin tarkoitus tuoda käyttäjälle graafinen esitystapa Cost A
 
 [Release](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/viikko5)
 
-[Releasen .jar-tiedosto](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/download/viikko5/InvestmentSimulator.jar)
+- [Releasen .jar-tiedosto](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/download/viikko5/InvestmentSimulator.jar)
 
 ## Komentorivitoiminnot
 
