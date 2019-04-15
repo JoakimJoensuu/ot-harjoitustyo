@@ -6,7 +6,7 @@ Repositorio Helsingin Yliopiston Ohjelmistotekniikka-kurssin palautuksille
 
 Sijoitussimulaattorin tarkoitus tuoda käyttäjälle graafinen esitystapa Cost Averaging ja Value Averaging strategioiden toteutumiselle eri tapauksissa. Käyttäjä voi generoida satunnaisesti kuvitellun kohteen hinnankehityksen tai luoda ne manuaalisesti.
 
-#### Tarkemmat kuvaukset sovelluksesta löytyvät seuraavien linkkien alta:
+#### Tarkemmat kuvaukset sovelluksesta ja sen toiminnasta löytyvät seuraavien linkkien alta:
 
 [Vaatimusmäärittely](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
