@@ -1,8 +1,8 @@
-
 package investmentsimulator.domain;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
-
 
 public class Generator {
 
@@ -175,22 +175,8 @@ public class Generator {
     }
 
     public double roundToNDecimals(double d, int decimals) {
-        for (int i = 0; i < decimals; i++) {
-            d *= 10;
-        }
-        d = (double) roundToInt(d);
-        for (int i = 0; i < decimals; i++) {
-            d /= 10;
-        }
-
-        for (int i = 0; i < decimals; i++) {
-            d *= 10;
-        }
-        d = (double) roundToInt(d);
-        for (int i = 0; i < decimals; i++) {
-            d /= 10;
-        }
-        return d;
+        BigDecimal bd = new BigDecimal(Double.toString(d));
+        bd = bd.setScale(decimals, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
-
 }

@@ -171,7 +171,7 @@ public class GeneratorTest {
         int[] profit4 = {0, 10000, 40000, 52000};
 
         assertTrue(s.generateROI(profit1, purchases1)[3] == 300.0);
-        assertTrue(s.generateROI(profit2, purchases2)[3] == 934.6600000000001);
+        assertTrue(s.generateROI(profit2, purchases2)[3] == 934.66);
         assertTrue(s.generateROI(profit3, purchases3)[3] == -90.4);
         assertTrue(s.generateROI(profit4, purchases4)[3] == 520.0);
 

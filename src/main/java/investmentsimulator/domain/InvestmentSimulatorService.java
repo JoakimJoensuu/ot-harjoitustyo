@@ -84,8 +84,8 @@ public class InvestmentSimulatorService {
 
     public void chartXAxisToROI(LineChart<String, Number> simulationChart) {
         simulationChart.getData().clear();
-        XYChart.Series valueAverageROIs = valueAverageROIsForChart();
-        XYChart.Series costAverageROIs = costAverageROIsForChart();
+        XYChart.Series valueAverageROIs = doubleValuesAndDatesToXYChart("Value Averaging ROI", selectedSimulation.getValueAverageROI(), selectedSimulation.getDates());
+        XYChart.Series costAverageROIs = doubleValuesAndDatesToXYChart("Cost Averaging ROI", selectedSimulation.getCostAverageROI(), selectedSimulation.getDates());
 
         simulationChart.getData().add(valueAverageROIs);
         simulationChart.getData().add(costAverageROIs);
@@ -93,29 +93,21 @@ public class InvestmentSimulatorService {
         simulationChart.getYAxis().setLabel("ROI");
     }
 
-    public XYChart.Series valueAverageROIsForChart() {
+    public XYChart.Series doubleValuesAndDatesToXYChart(String name, double[] values, LocalDate[] dates) {
         XYChart.Series data = new XYChart.Series();
-        data.setName("VA ROI");
-        for (int i = 0; i < selectedSimulation.getDates().length; i++) {
-            data.getData().add(new XYChart.Data(selectedSimulation.getDates()[i].toString(), selectedSimulation.getValueAverageROI()[i]));
-        }
-        return data;
-    }
+        data.setName(name);
 
-    public XYChart.Series costAverageROIsForChart() {
-        XYChart.Series data = new XYChart.Series();
-        data.setName("CA ROI");
-        for (int i = 0; i < selectedSimulation.getDates().length; i++) {
-
-            data.getData().add(new XYChart.Data(selectedSimulation.getDates()[i].toString(), selectedSimulation.getCostAverageROI()[i]));
+        for (int i = 0; i < dates.length; i++) {
+            data.getData().add(new XYChart.Data(dates[i].toString(), values[i] / 100));
         }
+
         return data;
     }
 
     public void chartXAxisToValue(LineChart<String, Number> simulationChart) {
         simulationChart.getData().clear();
-        XYChart.Series valueAverageValues = valueAverageValuesForChart();
-        XYChart.Series costAverageValues = costAverageValuesForChart();
+        XYChart.Series valueAverageValues = intValuesAndDatesToXYChart("Value Averaging ostot", selectedSimulation.getValueAverageValues(), selectedSimulation.getDates());
+        XYChart.Series costAverageValues = intValuesAndDatesToXYChart("Cost Averaging ostot", selectedSimulation.getCostAverageValues(), selectedSimulation.getDates());
 
         simulationChart.getData().add(valueAverageValues);
         simulationChart.getData().add(costAverageValues);
@@ -123,30 +115,10 @@ public class InvestmentSimulatorService {
         simulationChart.getYAxis().setLabel("Arvo");
     }
 
-    public XYChart.Series valueAverageValuesForChart() {
-        XYChart.Series data = new XYChart.Series();
-        data.setName("VA arvonvaihtelu");
-        for (int i = 0; i < selectedSimulation.getDates().length; i++) {
-            data.getData().add(new XYChart.Data(selectedSimulation.getDates()[i].toString(), selectedSimulation.getValueAverageValues()[i] / 100));
-        }
-
-        return data;
-    }
-
-    public XYChart.Series costAverageValuesForChart() {
-        XYChart.Series data = new XYChart.Series();
-        data.setName("CA hankintahinta");
-        for (int i = 0; i < selectedSimulation.getDates().length; i++) {
-            data.getData().add(new XYChart.Data(selectedSimulation.getDates()[i].toString(), selectedSimulation.getCostAverageValues()[i] / 100));
-        }
-
-        return data;
-    }
-
     public void chartXAxisToProfit(LineChart<String, Number> simulationChart) {
         simulationChart.getData().clear();
-        XYChart.Series valueAverageProfit = valueAverageProfitsForChart();
-        XYChart.Series costAverageProfit = costAverageProfitsForChart();
+        XYChart.Series valueAverageProfit = intValuesAndDatesToXYChart("Value Averaging ostot", selectedSimulation.getValueAverageProfit(), selectedSimulation.getDates());
+        XYChart.Series costAverageProfit = intValuesAndDatesToXYChart("Cost Averaging ostot", selectedSimulation.getCostAverageProfit(), selectedSimulation.getDates());
 
         simulationChart.getData().add(valueAverageProfit);
         simulationChart.getData().add(costAverageProfit);
@@ -154,40 +126,32 @@ public class InvestmentSimulatorService {
         simulationChart.getYAxis().setLabel("Tuotto");
     }
 
-    public XYChart.Series valueAverageProfitsForChart() {
-        XYChart.Series data = new XYChart.Series();
-        data.setName("VA tuotto");
-        for (int i = 0; i < selectedSimulation.getDates().length; i++) {
-            data.getData().add(new XYChart.Data(selectedSimulation.getDates()[i].toString(), selectedSimulation.getValueAverageProfit()[i] / 100));
-        }
-
-        return data;
-    }
-
-    public XYChart.Series costAverageProfitsForChart() {
-        XYChart.Series data = new XYChart.Series();
-        data.setName("CA tuotto");
-        for (int i = 0; i < selectedSimulation.getDates().length; i++) {
-            data.getData().add(new XYChart.Data(selectedSimulation.getDates()[i].toString(), selectedSimulation.getCostAverageProfit()[i] / 100));
-        }
-
-        return data;
-    }
-
     public void chartXAxisToPrice(LineChart<String, Number> simulationChart) {
         simulationChart.getData().clear();
-        XYChart.Series prices = simulationPricesForChart();
+        XYChart.Series prices = intValuesAndDatesToXYChart("Kohteen hinnankehitys", selectedSimulation.getPrices(), selectedSimulation.getDates());
 
         simulationChart.getData().add(prices);
 
         simulationChart.getYAxis().setLabel("Kohteen hinta");
     }
 
-    public XYChart.Series simulationPricesForChart() {
+    public void chartXAxisToPurchases(LineChart<String, Number> simulationChart) {
+        simulationChart.getData().clear();
+        XYChart.Series valueAveragePurchases = intValuesAndDatesToXYChart("Value Averaging ostot", selectedSimulation.getValueAveragePurchases(), selectedSimulation.getDates());
+        XYChart.Series costAveragePurchases = intValuesAndDatesToXYChart("Cost Averaging ostot", selectedSimulation.getCostAveragePurchases(), selectedSimulation.getDates());
+
+        simulationChart.getData().add(valueAveragePurchases);
+        simulationChart.getData().add(costAveragePurchases);
+
+        simulationChart.getYAxis().setLabel("Ostot");
+    }
+
+    public XYChart.Series intValuesAndDatesToXYChart(String name, int[] values, LocalDate[] dates) {
         XYChart.Series data = new XYChart.Series();
-        data.setName("Kohteen hinnankehitys");
-        for (int i = 0; i < selectedSimulation.getDates().length; i++) {
-            data.getData().add(new XYChart.Data(selectedSimulation.getDates()[i].toString(), selectedSimulation.getPrices()[i] / 100));
+        data.setName(name);
+
+        for (int i = 0; i < dates.length; i++) {
+            data.getData().add(new XYChart.Data(dates[i].toString(), values[i] / 100));
         }
 
         return data;
