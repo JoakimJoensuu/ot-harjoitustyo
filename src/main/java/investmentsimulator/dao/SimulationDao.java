@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package investmentsimulator.dao;
 
 import investmentsimulator.domain.Simulation;
@@ -13,10 +8,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author afkaaja
- */
 public class SimulationDao {
 
     private String database;
@@ -26,101 +17,119 @@ public class SimulationDao {
         initDatabase();
     }
 
-    public void initDatabase() throws SQLException {
-        Connection connection = connect();
-        PreparedStatement createSimulationTable = connection.prepareStatement(
-                "CREATE TABLE IF NOT EXISTS simulation (id INTEGER PRIMARY KEY,name VARCHAR(100),sum INTEGER,startingDate DATE,periodType VARCHAR(10),amountOfPeriods INTEGER);"
-        );
-        createSimulationTable.execute();
-        createSimulationTable.close();
+    public void initDatabase() {
+        try {
+            Connection connection = connect();
+            PreparedStatement createSimulationTable = connection.prepareStatement(
+                    "CREATE TABLE IF NOT EXISTS simulation (id INTEGER PRIMARY KEY,name VARCHAR(100),sum INTEGER,startingDate DATE,periodType VARCHAR(10),amountOfPeriods INTEGER);"
+            );
+            createSimulationTable.execute();
+            createSimulationTable.close();
 
-        PreparedStatement createPriceTable = connection.prepareStatement(
-                "CREATE TABLE IF NOT EXISTS price (simulation_id INTEGER,i INTEGER,price INTEGER,FOREIGN KEY(simulation_id) REFERENCES simulation(id));"
-        );
-        createPriceTable.execute();
-        createPriceTable.close();
+            PreparedStatement createPriceTable = connection.prepareStatement(
+                    "CREATE TABLE IF NOT EXISTS price (simulation_id INTEGER,i INTEGER,price INTEGER,FOREIGN KEY(simulation_id) REFERENCES simulation(id));"
+            );
+            createPriceTable.execute();
+            createPriceTable.close();
 
-        connection.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SimulationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
-    private Connection connect() throws SQLException {
+    private Connection connect() {
         Connection conn = null;
         try {
             String url = "jdbc:sqlite:" + database;
             conn = DriverManager.getConnection(url);
-
-            System.out.println("Connection to SQLite has been established.");
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return conn;
     }
 
-    public void saveSimulation(String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods, int[] prices) throws SQLException {
-        Connection connection = connect();
+    public void saveSimulation(String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods, int[] prices) {
+        try {
+            Connection connection = connect();
 
-        saveSimulationDetails(connection, name, sum, startingDate, periodType, amountOfPeriods);
+            saveSimulationDetails(connection, name, sum, startingDate, periodType, amountOfPeriods);
 
-        int id = getLastId(connection);
-        System.out.println(id);
+            int id = getLastId(connection);
+            System.out.println(id);
 
-        saveSimulationPrices(id, prices, connection);
-        connection.close();
-
-    }
-
-    private void saveSimulationDetails(Connection connection, String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods) throws SQLException {
-        PreparedStatement saveDetailsStatement = connection.prepareStatement(
-                "INSERT INTO simulation"
-                + "(name,"
-                + "sum,"
-                + "startingDate,"
-                + "periodType,"
-                + "amountOfPeriods)"
-                + "VALUES (?, ?, ?, ?, ?);"
-        );
-
-        saveDetailsStatement.setString(1, name);
-        saveDetailsStatement.setInt(2, sum);
-        saveDetailsStatement.setDate(3, Date.valueOf(startingDate));
-        saveDetailsStatement.setString(4, periodType);
-        saveDetailsStatement.setInt(5, amountOfPeriods);
-
-        saveDetailsStatement.executeUpdate();
-        saveDetailsStatement.close();
-    }
-
-    private int getLastId(Connection connection) throws SQLException {
-        PreparedStatement getLastId = connection.prepareStatement("SELECT last_insert_rowid() AS id;");
-        ResultSet resultSet = getLastId.executeQuery();
-
-        int id = -1;
-        while (resultSet.next()) {
-            id = resultSet.getInt("id");
+            saveSimulationPrices(id, prices, connection);
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SimulationDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private void saveSimulationDetails(Connection connection, String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods) {
+        try {
+            PreparedStatement saveDetailsStatement = connection.prepareStatement(
+                    "INSERT INTO simulation"
+                    + "(name,"
+                    + "sum,"
+                    + "startingDate,"
+                    + "periodType,"
+                    + "amountOfPeriods)"
+                    + "VALUES (?, ?, ?, ?, ?);"
+            );
+
+            saveDetailsStatement.setString(1, name);
+            saveDetailsStatement.setInt(2, sum);
+            saveDetailsStatement.setDate(3, Date.valueOf(startingDate));
+            saveDetailsStatement.setString(4, periodType);
+            saveDetailsStatement.setInt(5, amountOfPeriods);
+
+            saveDetailsStatement.executeUpdate();
+            saveDetailsStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SimulationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private int getLastId(Connection connection) {
+        int id = -1;
+        try {
+            PreparedStatement getLastId = connection.prepareStatement("SELECT last_insert_rowid() AS id;");
+            ResultSet resultSet = getLastId.executeQuery();
+
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+
+            return id;
+        } catch (SQLException ex) {
+            Logger.getLogger(SimulationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return id;
     }
 
-    private void saveSimulationPrices(int simulationId, int[] prices, Connection connection) throws SQLException {
+    private void saveSimulationPrices(int simulationId, int[] prices, Connection connection) {
         for (int i = 0; i < prices.length; i++) {
-            int price = prices[i];
+            try {
+                int price = prices[i];
 
-            PreparedStatement savePricesStatement = connection.prepareStatement(
-                    "INSERT INTO price"
-                    + "(simulation_id,"
-                    + "i,"
-                    + "price)"
-                    + "VALUES (?, ?, ?);"
-            );
+                PreparedStatement savePricesStatement = connection.prepareStatement(
+                        "INSERT INTO price"
+                        + "(simulation_id,"
+                        + "i,"
+                        + "price)"
+                        + "VALUES (?, ?, ?);"
+                );
 
-            savePricesStatement.setInt(1, simulationId);
-            savePricesStatement.setInt(2, i);
-            savePricesStatement.setInt(3, price);
-            savePricesStatement.executeUpdate();
-            savePricesStatement.close();
+                savePricesStatement.setInt(1, simulationId);
+                savePricesStatement.setInt(2, i);
+                savePricesStatement.setInt(3, price);
+                savePricesStatement.executeUpdate();
+                savePricesStatement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(SimulationDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

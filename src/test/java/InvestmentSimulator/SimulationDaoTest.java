@@ -46,11 +46,7 @@ public class SimulationDaoTest {
     public void SavingSimulationAndGettingSameSimulationWorks() {
         int[] prices = {100, 90, 80};
         LocalDate date = LocalDate.now();
-        try {
-            s.saveSimulation("name", 100, date, "Viikko", 2, prices);
-        } catch (SQLException ex) {
-            Logger.getLogger(SimulationDaoTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        s.saveSimulation("name", 100, date, "Viikko", 2, prices);
 
         Simulation loadedSimulation = s.getAllSimulations().get(0);
 
@@ -68,11 +64,7 @@ public class SimulationDaoTest {
     public void SavingSimulationAndGettingSimulationPricecsWorks() {
         int[] prices = {100, 90, 80};
         LocalDate date = LocalDate.now();
-        try {
-            s.saveSimulation("name", 100, date, "Viikko", 2, prices);
-        } catch (SQLException ex) {
-            Logger.getLogger(SimulationDaoTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        s.saveSimulation("name", 100, date, "Viikko", 2, prices);
 
         Simulation loadedSimulation = s.getAllSimulations().get(0);
 
