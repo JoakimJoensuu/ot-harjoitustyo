@@ -1,4 +1,3 @@
-
 package investmentsimulator.ui;
 
 import javafx.application.*;
@@ -181,35 +180,30 @@ public class InvestmentSimulatorUi extends Application {
         return simulationMenu = new Scene(simulationLayout, 1600, 900);
     }
 
-    private LineChart<String, Number> createSimulationChart() {
-        CategoryAxis xAkseli = new CategoryAxis();
-        NumberAxis yAkseli = new NumberAxis();
-        xAkseli.setLabel("Päivä");
-        yAkseli.setLabel("ROI %");
-        LineChart<String, Number> chart = new LineChart<>(xAkseli, yAkseli);
+    private void showSimulation() {
+        //create simulation Linechart
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Päivä");
+        yAxis.setLabel("ROI %");
+
+        LineChart<String, Number> simulationChart = new LineChart<>(xAxis, yAxis);
 
         XYChart.Series valueAverageROI = iSService.valueAverageROIsForChart();
         XYChart.Series costAverageROI = iSService.costAverageROIsForChart();
 
-        chart.getData().add(valueAverageROI);
-        chart.getData().add(costAverageROI);
+        simulationChart.getData().add(valueAverageROI);
+        simulationChart.getData().add(costAverageROI);
 
-        chart.setTitle("Value Average vs Cost Average ROI");
-        return chart;
-    }
+        simulationChart.setTitle("Value Average vs Cost Average");
 
-    private void showSimulation() {
-        DecimalFormat df = new DecimalFormat("#%");
-        LineChart<String, Number> simulationChart = createSimulationChart();
-        Simulation selectedSimulation = iSService.getSelectedSimulation();
-
-        Label dateFromChart = new Label("");
-        Label costAveraging = new Label("Cost Averaging");
-        Label valueAveraging = new Label("Value Averaging");
+        //create back-button shown under linechart
         Button back = new Button("Takaisin");
         back.setOnAction((event) -> {
             stage.setScene(mainMenu);
         });
+
+        //create save-form shown under linechart
         TextField simulationName = new TextField();
         simulationName.setText(iSService.getSelectedSimulation().getName());
         Label errorLabel = new Label();
@@ -217,12 +211,10 @@ public class InvestmentSimulatorUi extends Application {
 
         save.setOnAction((event) -> {
             if (simulationName.getText() != null && simulationName.getText().length() > 0) {
-                try {
-                    iSService.saveSimulation(simulationName.getText());
-                    redrawSimulationslist();
-                } catch (SQLException ex) {
-                    Logger.getLogger(InvestmentSimulatorUi.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+                iSService.saveSimulation(simulationName.getText());
+                redrawSimulationslist();
+
                 errorLabel.setText("");
                 simulationName.clear();
             } else {
@@ -231,6 +223,31 @@ public class InvestmentSimulatorUi extends Application {
             }
         });
 
+        //create buttons for selecting what is shown in chart
+        Button showROI = new Button("Näytä ROI");
+        showROI.setOnAction((event) -> {
+            iSService.chartXAxisToROI(simulationChart);
+        });
+
+        Button showPrice = new Button("Näytä hinnankehitys");
+        showPrice.setOnAction((event) -> {
+            iSService.chartXAxisToPrice(simulationChart);
+        });
+
+        Button showValues = new Button("Näytä arvo");
+        showValues.setOnAction((event) -> {
+            iSService.chartXAxisToValue(simulationChart);
+        });
+
+        Button showProfit = new Button("Näytä tuotto");
+        showProfit.setOnAction((event) -> {
+            iSService.chartXAxisToProfit(simulationChart);
+        });
+
+        //Create labels shown under linechart
+        Label dateFromChart = new Label("");
+        Label costAveraging = new Label("Cost Averaging");
+        Label valueAveraging = new Label("Value Averaging");
         Label invested = new Label("Investoitu");
         Label ROI = new Label("Tuottoprosentti");
         Label Profit = new Label("Tuotto");
@@ -244,49 +261,68 @@ public class InvestmentSimulatorUi extends Application {
         Label costAveragingROI = new Label("");
         Label costAveragingProfit = new Label("");
         Label costAveragingAmountToInvest = new Label("");
-
         Label valueAveragingValue = new Label("");
         Label costAveragingValue = new Label("");
         Label currentPrice = new Label("");
+        Label priceLabel = new Label("Kohteen hinta");
 
+        //add buttons and labels under chart
         this.infoBelowChart = new GridPane();
         infoBelowChart.setHgap(50);
         infoBelowChart.setVgap(10);
         infoBelowChart.setPadding(new Insets(25, 25, 25, 25));
-        infoBelowChart.add(dateFromChart, 0, 0);
-        infoBelowChart.add(costAveraging, 0, 1);
-        infoBelowChart.add(valueAveraging, 0, 2);
-        infoBelowChart.add(back, 0, 3);
-        infoBelowChart.add(invested, 1, 0);
-        infoBelowChart.add(ROI, 2, 0);
-        infoBelowChart.add(Profit, 3, 0);
-        infoBelowChart.add(amountToInvest, 4, 0);
-        infoBelowChart.add(value, 5, 0);
-        infoBelowChart.add(valueAveragingInvested, 1, 2);
-        infoBelowChart.add(valueAveragingROI, 2, 2);
-        infoBelowChart.add(valueAveragingProfit, 3, 2);
-        infoBelowChart.add(valueAveragingAmountToInvest, 4, 2);
-        infoBelowChart.add(valueAveragingValue, 5, 2);
-        infoBelowChart.add(costAveragingInvested, 1, 1);
-        infoBelowChart.add(costAveragingROI, 2, 1);
-        infoBelowChart.add(costAveragingProfit, 3, 1);
-        infoBelowChart.add(costAveragingAmountToInvest, 4, 1);
-        infoBelowChart.add(costAveragingValue, 5, 1);
-        infoBelowChart.add(currentPrice, 6, 1);
-        infoBelowChart.add(simulationName, 7, 2);
-        infoBelowChart.add(save, 7, 3);
-        infoBelowChart.add(errorLabel, 8, 2);
 
-        final Axis<String> xAxis = simulationChart.getXAxis();
+        //1st row
+        infoBelowChart.add(showPrice, 0, 0);
+        infoBelowChart.add(showValues, 1, 0);
+        infoBelowChart.add(showProfit, 2, 0);
+        infoBelowChart.add(showROI, 3, 0);
+        infoBelowChart.add(priceLabel, 5, 0);
+        infoBelowChart.add(currentPrice, 6, 0);
+
+        //2nd row
+        infoBelowChart.add(dateFromChart, 0, 1);
+        infoBelowChart.add(invested, 1, 1);
+        infoBelowChart.add(ROI, 2, 1);
+        infoBelowChart.add(Profit, 3, 1);
+        infoBelowChart.add(amountToInvest, 4, 1);
+        infoBelowChart.add(value, 5, 1);
+
+        //3rd row
+        infoBelowChart.add(costAveraging, 0, 2);
+        infoBelowChart.add(costAveragingInvested, 1, 2);
+        infoBelowChart.add(costAveragingROI, 2, 2);
+        infoBelowChart.add(costAveragingProfit, 3, 2);
+        infoBelowChart.add(costAveragingAmountToInvest, 4, 2);
+        infoBelowChart.add(costAveragingValue, 5, 2);
+
+        //4th row
+        infoBelowChart.add(valueAveraging, 0, 3);
+
+        infoBelowChart.add(valueAveragingInvested, 1, 3);
+        infoBelowChart.add(valueAveragingROI, 2, 3);
+        infoBelowChart.add(valueAveragingProfit, 3, 3);
+        infoBelowChart.add(valueAveragingAmountToInvest, 4, 3);
+        infoBelowChart.add(valueAveragingValue, 5, 3);
+        infoBelowChart.add(simulationName, 7, 3);
+        infoBelowChart.add(errorLabel, 8, 3);
+
+        //5th row
+        infoBelowChart.add(back, 0, 4);
+        infoBelowChart.add(save, 7, 4);
+
+        //make chart responsive so labels under the chart change their value according to mouse location on chart 
+        Simulation selectedSimulation = iSService.getSelectedSimulation();
+        final Axis<String> Axis = simulationChart.getXAxis();
 
         final Node chartBackground = simulationChart.lookup(".chart-plot-background");
-        chartBackground.getParent().getChildrenUnmodifiable().stream().filter((n) -> (n != chartBackground && n != xAxis)).forEachOrdered((n) -> {
+        chartBackground.getParent().getChildrenUnmodifiable().stream().filter((n) -> (n != chartBackground && n != Axis)).forEachOrdered((n) -> {
             n.setMouseTransparent(true);
         });
 
         chartBackground.setOnMouseMoved((MouseEvent mouseEvent) -> {
-            if (xAxis.getValueForDisplay(mouseEvent.getX()) != null) {
-                dateFromChart.setText(xAxis.getValueForDisplay(mouseEvent.getX()));
+            if (Axis.getValueForDisplay(mouseEvent.getX()) != null) {
+                dateFromChart.setText(Axis.getValueForDisplay(mouseEvent.getX()));
                 LocalDate date = LocalDate.parse(dateFromChart.getText());
                 int index = selectedSimulation.getIndexOfTheDate(date);
 
@@ -304,10 +340,10 @@ public class InvestmentSimulatorUi extends Application {
             }
         });
 
-        xAxis.setOnMouseMoved((MouseEvent mouseEvent) -> {
+        Axis.setOnMouseMoved((MouseEvent mouseEvent) -> {
 
-            if (xAxis.getValueForDisplay(mouseEvent.getX()) != null) {
-                dateFromChart.setText(xAxis.getValueForDisplay(mouseEvent.getX()));
+            if (Axis.getValueForDisplay(mouseEvent.getX()) != null) {
+                dateFromChart.setText(Axis.getValueForDisplay(mouseEvent.getX()));
                 LocalDate date = LocalDate.parse(dateFromChart.getText());
                 int index = selectedSimulation.getIndexOfTheDate(date);
 
