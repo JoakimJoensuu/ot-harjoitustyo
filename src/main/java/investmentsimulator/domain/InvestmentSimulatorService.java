@@ -98,7 +98,7 @@ public class InvestmentSimulatorService {
         data.setName(name);
 
         for (int i = 0; i < dates.length; i++) {
-            data.getData().add(new XYChart.Data(dates[i].toString(), values[i] / 100));
+            data.getData().add(new XYChart.Data(dates[i].toString(), values[i]));
         }
 
         return data;

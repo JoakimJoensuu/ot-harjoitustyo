@@ -21,13 +21,13 @@ public class SimulationDao {
         try {
             Connection connection = connect();
             PreparedStatement createSimulationTable = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS simulation (id INTEGER PRIMARY KEY,name VARCHAR(100),sum INTEGER,startingDate DATE,periodType VARCHAR(10),amountOfPeriods INTEGER);"
+                    "CREATE TABLE IF NOT EXISTS simulation (id INTEGER PRIMARY KEY, name VARCHAR(100), sum INTEGER, startingDate DATE, periodType VARCHAR(10), amountOfPeriods INTEGER);"
             );
             createSimulationTable.execute();
             createSimulationTable.close();
 
             PreparedStatement createPriceTable = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS price (simulation_id INTEGER,i INTEGER,price INTEGER,FOREIGN KEY(simulation_id) REFERENCES simulation(id));"
+                    "CREATE TABLE IF NOT EXISTS price (simulation_id INTEGER, i INTEGER, price INTEGER, FOREIGN KEY(simulation_id) REFERENCES simulation(id));"
             );
             createPriceTable.execute();
             createPriceTable.close();
@@ -70,13 +70,7 @@ public class SimulationDao {
     private void saveSimulationDetails(Connection connection, String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods) {
         try {
             PreparedStatement saveDetailsStatement = connection.prepareStatement(
-                    "INSERT INTO simulation"
-                    + "(name,"
-                    + "sum,"
-                    + "startingDate,"
-                    + "periodType,"
-                    + "amountOfPeriods)"
-                    + "VALUES (?, ?, ?, ?, ?);"
+                    "INSERT INTO simulation (name, sum, startingDate, periodType, amountOfPeriods) VALUES (?, ?, ?, ?, ?);"
             );
 
             saveDetailsStatement.setString(1, name);
@@ -115,11 +109,7 @@ public class SimulationDao {
                 int price = prices[i];
 
                 PreparedStatement savePricesStatement = connection.prepareStatement(
-                        "INSERT INTO price"
-                        + "(simulation_id,"
-                        + "i,"
-                        + "price)"
-                        + "VALUES (?, ?, ?);"
+                        "INSERT INTO price(simulation_id, i, price) VALUES (?, ?, ?);"
                 );
 
                 savePricesStatement.setInt(1, simulationId);

@@ -28,33 +28,7 @@ public class SimulationTest {
         this.s = new Simulation();
     }
 
-    @Test
-    public void simulationPricesWithMaximumVariationAreCorrect() {
 
-        for (int i = 0; i < 1000000; i++) {
-            int generatedPrice = s.generatePrices(1, 1)[1];
-
-            assertTrue(generatedPrice >= 0 && generatedPrice <= 20000);
-        }
-    }
-
-    @Test
-    public void simulationPricesWithMediumVariationAreCorrect() {
-        for (int i = 0; i < 1000000; i++) {
-            int generatedPrice = s.generatePrices(0.5, 1)[1];
-
-            assertTrue(generatedPrice >= 5000 && generatedPrice <= 15000);
-        }
-    }
-
-    @Test
-    public void simulationPricesWithMinimumVariationAreCorrect() {
-        for (int i = 0; i < 1000000; i++) {
-            int generatedPrice = s.generatePrices(0, 1)[1];
-
-            assertTrue(generatedPrice == 10000);
-        }
-    }
 
     @Test
     public void roundToIntRoundsCorrectly() {

@@ -149,6 +149,34 @@ public class GeneratorTest {
     }
 
     @Test
+    public void simulationPricesWithMaximumVariationAreCorrect() {
+
+        for (int i = 0; i < 1000000; i++) {
+            int generatedPrice = s.generatePrices(1, 1)[1];
+
+            assertTrue(generatedPrice >= 0 && generatedPrice <= 20000);
+        }
+    }
+
+    @Test
+    public void simulationPricesWithMediumVariationAreCorrect() {
+        for (int i = 0; i < 1000000; i++) {
+            int generatedPrice = s.generatePrices(0.5, 1)[1];
+
+            assertTrue(generatedPrice >= 5000 && generatedPrice <= 15000);
+        }
+    }
+
+    @Test
+    public void simulationPricesWithMinimumVariationAreCorrect() {
+        for (int i = 0; i < 1000000; i++) {
+            int generatedPrice = s.generatePrices(0, 1)[1];
+
+            assertTrue(generatedPrice == 10000);
+        }
+    }
+
+    @Test
     public void roundToNDecimalsRoundsCorrectly() {
         double decimal1 = 123.456234;
         int n1 = 2;
@@ -161,19 +189,19 @@ public class GeneratorTest {
 
     @Test
     public void generateROICorrectly() {
-        int[] purchases1 = {10000, 0, 0, 0};
-        int[] purchases2 = {10000, 19990, 28000, -560000};
-        int[] purchases3 = {10000, 2000, 29667, 36000};
-        int[] purchases4 = {10000, 0, -20000, -2000};
+        int[] purchases1 = {10000, 10000, 10000, 10000};
+        int[] purchases2 = {10000, 29990, 57990, -502010};
+        int[] purchases3 = {10000, 12000, 41667, 77667};
+        int[] purchases4 = {10000, 10000, -10000, -8000};
         int[] profit1 = {0, 10000, 20000, 30000};
         int[] profit2 = {0, -9990, -27990, 542010};
         int[] profit3 = {0, 8000, -11667, -37667};
         int[] profit4 = {0, 10000, 40000, 52000};
 
         assertTrue(s.generateROI(profit1, purchases1)[3] == 300.0);
-        assertTrue(s.generateROI(profit2, purchases2)[3] == 934.66);
-        assertTrue(s.generateROI(profit3, purchases3)[3] == -90.4);
-        assertTrue(s.generateROI(profit4, purchases4)[3] == 520.0);
+        assertTrue(s.generateROI(profit2, purchases2)[3] == -107.97);
+        assertTrue(s.generateROI(profit3, purchases3)[3] == -48.5);
+        assertTrue(s.generateROI(profit4, purchases4)[3] == -650.0);
 
     }
 

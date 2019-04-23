@@ -38,7 +38,7 @@ public class Simulation {
         this.sum = sum;
         this.periodType = periodType;
         this.startingDate = startingDate;
-        this.prices = generatePrices(variation / 100, amountOfPeriods);
+        this.prices = generator.generatePrices(variation / 100, amountOfPeriods);
         initializeArrays();
     }
 
@@ -61,24 +61,12 @@ public class Simulation {
         this.costAveragePurchases = generator.generateCostAveragePurchases(costAverageValues, sum);
         this.costAverageProfit = generator.generateCostAverageProfit(costAveragePurchases, costAverageValues);
         this.valueAverageProfit = generator.generateValueAverageProfit(valueAveragePurchases, sum);
-        this.costAverageROI = generator.generateROI(costAverageProfit, costAveragePurchases);
-        this.valueAverageROI = generator.generateROI(valueAverageProfit, valueAveragePurchases);
         this.valueAverageInvested = generator.generateInvested(valueAveragePurchases);
         this.costAverageInvested = generator.generateInvested(costAveragePurchases);
+        this.costAverageROI = generator.generateROI(costAverageProfit, costAverageInvested);
+        this.valueAverageROI = generator.generateROI(valueAverageProfit, valueAverageInvested);
     }
 
-    public int[] generatePrices(double variation, int amountOfPeriods) {
-        int[] generatedPrices = new int[amountOfPeriods + 1];
-        Random r = new Random();
-        generatedPrices[0] = 10000;
-
-        for (int i = 1; i < generatedPrices.length; i++) {
-            double multiplier = 1 + (r.nextDouble() * 2 - 1) * variation;
-            generatedPrices[i] = (int) ((double) generatedPrices[i - 1] * multiplier);
-
-        }
-        return generatedPrices;
-    }
 
     public int roundToInt(double d) {
         return (int) Math.round(d);

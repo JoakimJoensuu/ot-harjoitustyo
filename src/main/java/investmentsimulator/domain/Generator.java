@@ -3,8 +3,22 @@ package investmentsimulator.domain;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Random;
 
 public class Generator {
+
+    public int[] generatePrices(double variation, int amountOfPeriods) {
+        int[] generatedPrices = new int[amountOfPeriods + 1];
+        Random r = new Random();
+        generatedPrices[0] = 10000;
+
+        for (int i = 1; i < generatedPrices.length; i++) {
+            double multiplier = 1 + (r.nextDouble() * 2 - 1) * variation;
+            generatedPrices[i] = (int) ((double) generatedPrices[i - 1] * multiplier);
+
+        }
+        return generatedPrices;
+    }
 
     public LocalDate[] datesCreator(LocalDate startingDate, int amountOfPeriods, String periodType) {
         if (periodType.equals("Päivä")) {
@@ -139,17 +153,11 @@ public class Generator {
         return generatedValueAverageProfit;
     }
 
-    public double[] generateROI(int[] profit, int[] purchases) {
+    public double[] generateROI(int[] profit, int[] invested) {
         double[] rois = new double[profit.length];
 
-        int totalMoneyInvested = 0;
-
         for (int i = 1; i < rois.length; i++) {
-            if (purchases[i - 1] >= 0) {
-                totalMoneyInvested += purchases[i - 1];
-            }
-
-            double roi = (double) profit[i] / totalMoneyInvested * 100;
+            double roi = (double) profit[i] / invested[i] * 100;
             double roundedROI = roundToNDecimals(roi, 2);
 
             rois[i] = roundedROI;
@@ -179,4 +187,5 @@ public class Generator {
         bd = bd.setScale(decimals, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
 }

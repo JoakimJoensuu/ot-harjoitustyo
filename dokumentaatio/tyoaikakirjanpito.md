@@ -16,5 +16,8 @@
 | 8.4.  | 6     | tietokannan yhdistäminen sovellukseen, Daon luominen ja tallennus sekä latausmahdollisuuden luominen |  
 | 9.4.  | 1     | Checkstylen lisääminen ja sen havaitsemien virheiden korjaaminen |
 |       | 0.5   | Pakkauskaavion tekeminen      |
-| 15.4	| 3	| Luotu toiminnallisuus hintojen manuaaliselle lisäämiselle	|
-| yht   | 37.5	|						| 
+| 15.4.	| 3	| Luotu toiminnallisuus hintojen manuaaliselle lisäämiselle	|
+| 23.4.	| 3	| Lisätty painikkeet ja toiminnallisuus viivakaavion tietojen muuttamiselle suorituksen aikana	|
+|	| 1	| Korjattu ROIn laskentatapa siirretty metodeja Simulation-luokasta Generator-luokkaan	|	
+| yht   | 41.5	|						| 
+
