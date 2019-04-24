@@ -10,7 +10,7 @@ Sovelluksen pakkausrakenne kuvana:
 
 ## Käyttöliittymä
 
-Käyttöliittymän ohjelmallisesta toteutuksesta vastaa luokka [investmentsimulator.ui.InvestmentSimulatorUi](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/ui/InvestmentSimulatorUi.java).
+Käyttöliittymän ohjelmallisesta toteutuksesta vastaa luokka [InvestmentSimulatorUi](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/ui/InvestmentSimulatorUi.java).
 
 Käyttöliittymä koostuu seuraavista Scene-olioina toteutetuista näkymistä:
 
@@ -48,7 +48,7 @@ Sovelluksen loogisen datamallin muodostaa luokka [Simulation](https://github.com
 
 <img src="https://raw.githubusercontent.com/JoakimJoensuu/ot-harjoitustyo/master/dokumentaatio/kuvat/datamalli.png" width="200">
 
-Pakkauksen investmentsimulator.domain luokka [InvestmentSimulatorService](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/InvestmentSimulatorService.java) toimii kaiken keskiössä yhdistäen [investmentsimulator.dao.SimulationDao](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/dao/SimulationDao.java), [investmentsimulator.domain.Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java) ja [investmentsimulator.ui.InvestmentSimulatorUi](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/ui/InvestmentSimulatorUi.java) -luokat toisiinsa. Käyttöliittymän näkökulmasta se hoitaa kaiken sovelluslogiikan ja tiedon tallennuksen ja [SimulationDao](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/dao/SimulationDao.java) ja [Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java) -luokkien näkökulmasta se taas ohjaa kyseisiä luokkia käyttöliittymältä tulevien käskyjen mukaan.
+Pakkauksen investmentsimulator.domain luokka [investmentsimulator.domain.InvestmentSimulatorService](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/InvestmentSimulatorService.java) toimii kaiken keskiössä yhdistäen [investmentsimulator.dao.SimulationDao](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/dao/SimulationDao.java), [investmentsimulator.domain.Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java) ja [investmentsimulator.ui.InvestmentSimulatorUi](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/ui/InvestmentSimulatorUi.java) -luokat toisiinsa. Käyttöliittymän näkökulmasta se hoitaa kaiken sovelluslogiikan ja tiedon tallennuksen ja [SimulationDao](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/dao/SimulationDao.java) ja [Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java) -luokkien näkökulmasta se taas ohjaa kyseisiä luokkia käyttöliittymältä tulevien käskyjen mukaan.
 
 Sovelluksen toimintaa kuvaava pakkauskaavio:
 
@@ -78,9 +78,40 @@ Taulujen attribuutit ovat Price taulun i-attribuutti poislukien yksiselitteisiä
 
 ## Päätoiminnallisuudet 
 
+Sovelluksen muutama toiminnallisuus kuvattuna sekvenssikaaviona.
+
+### Simulaation luominen satunnaisilla hinnoilla
+
+Käydään läpi mitä tapahtuu, kun käyttäjä on syöttänyt tiedot simulaatiolomakkeeseen ja painaa "Generoi"-nappia joka saa sovelluksen luomaan uuden simulaation satunnaisilla hinnoilla.
+
 <img src="https://raw.githubusercontent.com/JoakimJoensuu/ot-harjoitustyo/master/dokumentaatio/kuvat/sekvenssikaavioSimulaationLuominenSatunnaisillaHinnoilla.png" width="750">
+
+Kun nappia painetaan sen painamiseen reagoiva tapahtumankäsittelijä kutsuu  [InvestmentSimulatorService](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/InvestmentSimulatorService.java) -luokan metodia _generateSimulation_ ja antaa sille simulaatiolomakkeesta simulaation luomiseen tarvittavat tiedot.
+
+_generateSimulation_-metodi luo uuden [Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java)-olion, joka konstruktorissaan luo uuden [Generator](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Generator.java)-olion. Tämän jälkeen _generateSimulation_-metodi kutsuu [Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java)-luokan metodia _initializeSimulation_ parametreilla, jotka saatiin napin painamiseen reagoivalta tapahtumankäsittelijältä. Näillä tiedoilla [Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java)-olio generoi satunnaiset hinnat ja muut simulaatioon liittyvät arvot [Generator](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Generator.java)-olion avulla.
+
+Lopuksi _generateSimulation_-metodi palauttaa tapahtumankäsittelijälle boolean arvon _true_ ja tapatumankäsittelijä kutsuu luokkansa metodia _showSimulation_, joka rakentaa ja asettaa näkyviin simulaation näyttämisen käytetyn _Scene_-tyyppisen _simulationMenu_-olion.
+
+### Simulaation tallentaminen
+
+Käydään läpi mitä tapahtuu, kun käyttäjä on syöttänyt halutun nimen jolla simulaatio tallennetaan ja painaa "Tallenna"-nappia joka saa sovelluksen tallentamaan simulaation tarpeelliset tiedot tietokantaan.
+
 <img src="https://raw.githubusercontent.com/JoakimJoensuu/ot-harjoitustyo/master/dokumentaatio/kuvat/sekvenssikaavioSimulaationTallentaminen.png" width="750">
+
+Kun nappia painetaan sen painamiseen reagoiva tapahtumankäsittelijä kutsuu [InvestmentSimulatorService](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/InvestmentSimulatorService.java) -luokan metodia _saveSimulation_ antaen sille samalla parametrina käyttäjän tekstikenttään syöttämän nimen.
+
+_saveSimulation_-metodi kutsuu valitun eli tällä hetkellä näytettävissä olevan [Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java)-olion _setName_-metodia, joka asettaa parametrina saamansa merkkijonon simulaation nimeksi.
+
+_saveSimulation_-metodi kutsuu tämän jälkeen [SimulationDao](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/dao/SimulationDao.java)-olion metodia _saveSimulation_ ja antaa sille parametrina tietokantaan tallennettavat tiedot. Olio tallentaa tiedot tietokantaan kutsuen muutamaa omaa metodiaan.
+
+Tietojen tallennuksen jälkeen tapatumankäsittelijä kutsuu oman luokkansa metodia _redrawSimulationslist_, joka hakee kaikki tietokantaan tallennetut simulaatiot tietokannasta [InvestmentSimulatorService](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/InvestmentSimulatorService.java) ja sitä kautta [SimulationDao](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/dao/SimulationDao.java)-olioiden avulla ja päivittää päävalikossa näytettävän tallennettujen Simulaatioiden listauksen.
+
+### Tallennetun simulaation lataaminen ja sen näyttäminen
+
+Käydään läpi mitä tapahtuu, kun käyttäjä painaa tallennettujen simulaatioden listauksesta "Lataa"-nappia joka saa sovelluksen lataamaan tietokannasta napin kohdalla olevan simulaation tiedot tietokannasta ja näyttämään ne simulaationäkymässä.
+
 <img src="https://raw.githubusercontent.com/JoakimJoensuu/ot-harjoitustyo/master/dokumentaatio/kuvat/sekvenssikaavioTallennetunSimulaationGenerointiJaNayttaminen.png" width="750">
 
+Kun nappia painetaan sen painamiseen reagoiva tapahtumankäsittelijä kutsuu [InvestmentSimulatorService](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/InvestmentSimulatorService.java)-luokan metodia _setLoadedSimulationSelected_, jolle annetaan parametrina simulaatio joka näytetään simulaationäkymässä. _setLoadedSimulationSelected_-metodi hakee simulaation hintatiedot tietokannasta [SimulationDao](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/dao/SimulationDao.java)-olion metodin _getSimulationPrices_ avulla jolle annetaan parametrina simulaation id-numero. _getSimulationPrices_-metodi palauttaa halutun simulaation hintatiedot listaja, jotka _setLoadedSimulationSelected_-metodi antaa valitulle Simulation-oliolle _setPrices_-metodin avulla. Tämän jälkeen _setLoadedSimulationSelected_-metodi kutsuu Simulation-olion metodia _initializeArrays_ joka saa [Simulation](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Simulation.java)-olion laskee simulaatioon liittyvät arvot [Generator](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/src/main/java/investmentsimulator/domain/Generator.java)-olion avulla.
 
-
+Lopuksi tapahtumanäsittelijä kutsuu luokkansa metodia _showSimulation_, joka rakentaa ja asettaa näkyviin simulaation näyttämisen käytetyn _Scene_-tyyppisen _simulationMenu_-olion.
