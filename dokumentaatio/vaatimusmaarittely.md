@@ -22,7 +22,7 @@ Päävalikko, josta voidaan luoda simulaatio tai ladata aiemmin tallennettu simu
 
 <img src="https://raw.githubusercontent.com/JoakimJoensuu/ot-harjoitustyo/master/dokumentaatio/kuvat/muokkausnakyma.jpg" width="750">
 
-Muokkausnäkymä, josta muokataan aikaisemmin luotua simulaatiota tai syötetään uuden manuaalisesti luotavan simulaation arvot
+Muokkausnäkymä, josta syötetään uuden manuaalisesti luotavan simulaation kohteen hinnat
 
 <img src="https://raw.githubusercontent.com/JoakimJoensuu/ot-harjoitustyo/master/dokumentaatio/kuvat/simulaationakyma.jpg" width="750">
 
@@ -34,21 +34,28 @@ Simulaationäkymä, josta voidaan tarkastella eri sijoitustrategioiden kehityst�
 
 - käyttäjä voi luoda simulaation manuaalisesti tai generoimalla sen satunnaisesti
   - valitsemalla simulaation manuaalisen luonnin käyttäjä ohjataan näkymään johon syötetään eri ajankohtien kurssit
-  - valitsemalla simulattion satunnaisen generoinnin käyttäjä ohjataan suoraa simulaationäkymään
+  - valitsemalla simulaation satunnaisen generoinnin käyttäjä ohjataan suoraa simulaationäkymään
   - ennen valintaa käyttäjältä vaaditaan esitiedot simulaation luomiselle
 - käyttäjä voi ladata aikaisemmin luodun simulaation tietokantaan josta käyttäjä ohjataan simulaationäkymään
 
 ### Simulaation tarkastelu
 
 - käyttäjä voi valita näytetäänkö viivakaaviossa simulaationäkymän graafissa kurssikehitys, eri strategioiden tuotto tai tuottoprosentti
-  - myös tarkasteltava aikaväli on valittavissa
-- viivakaavion alla olevasta näkymästä näkyy sijoitustrategioiden tuotto ja arvo kurssikehityksen eri kohdissa
-  - eri kohta valitaan viivakaaviota klikkaamalla
-- alimpana napit, joista pääsee takaisin päävalikkoon, muokkaamaan kohteen hetkittäisiä kursseja, tallentamaan simulaation tietokantaan
+  - vaihtamalla näytettävää arvoa viivakaavio päivittyy sen mukaisesti
+  
+- viivakaavion alla olevasta näkymästä näkyy sijoitustrategioiden tuotto, arvo ja muita tietoja tietyltä päivältä
+  - päivä valitaan liikuttamalla hiirtä viivakaavion päällä
+- alimpana napit, joista pääsee takaisin päävalikkoon ja tallentamaan simulaation tietokantaan
 
 ## Jatkokehitysideoita
 
 Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seuraavilla toiminnallisuuksilla
+
+- simulaationäkymän viivakaavioon kohteen hinnan lisäksi strategioiden ostojen keskikurssit eri päivinä
+
+- mahdollisuus muokata jo luodun simulaation kursseja ilman uuden luomista
+
+- Simulaationäkymässä tarkasteltavan aikaväli on valittavissa
 
 - kirjanpitoväline näillä strategioilla toteutettaville sijoituksille 
 

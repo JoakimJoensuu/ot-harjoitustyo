@@ -18,6 +18,7 @@
 |       | 0.5   | Pakkauskaavion tekeminen      |
 | 15.4.	| 3	| Luotu toiminnallisuus hintojen manuaaliselle lisäämiselle	|
 | 23.4.	| 3	| Lisätty painikkeet ja toiminnallisuus viivakaavion tietojen muuttamiselle suorituksen aikana	|
-|	| 1	| Korjattu ROIn laskentatapa siirretty metodeja Simulation-luokasta Generator-luokkaan	|	
-| yht   | 41.5	|						| 
+|	    | 1	| Korjattu ROIn laskentatapa siirretty metodeja Simulation-luokasta Generator-luokkaan	|	
+| 24.4. | 3  | Luotu JavaDoc luokille ja metodeille  |
+| yht   | 44.5	|						| 
 
