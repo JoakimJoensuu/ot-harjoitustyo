@@ -20,6 +20,6 @@
 | 23.4.	| 3	    | Lisätty painikkeet ja toiminnallisuus viivakaavion tietojen muuttamiselle suorituksen aikana	|
 |	    | 1	    | Korjattu ROIn laskentatapa siirretty metodeja Simulation-luokasta Generator-luokkaan	|	
 | 24.4. | 3     | Luotu JavaDoc luokille ja metodeille  |
-|       | 20:00-???      |  Arkkitehtuurikuvauksen kuvien ja tekstin luomista        |
-| yht   | 44.5	|						| 
+|       | 5.5      |  Arkkitehtuurikuvauksen kuvien ja tekstin luomista        |
+| yht   | 50	|						| 
 
