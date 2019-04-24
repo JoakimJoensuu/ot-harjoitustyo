@@ -1,20 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package InvestmentSimulator;
 
 import investmentsimulator.domain.Generator;
-import investmentsimulator.domain.Simulation;
 import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
-/**
- *
- * @author afkaaja
- */
+
 public class GeneratorTest {
 
     Generator s;
@@ -185,6 +176,13 @@ public class GeneratorTest {
         assertTrue(s.roundToNDecimals(decimal1, n1) == 123.46);
         assertTrue(s.roundToNDecimals(decimal1, n2) == 123.5);
 
+    }
+
+    @Test
+    public void roundToIntRoundsCorrectly() {
+        assertTrue(s.roundToInt(1.99) == 2);
+        assertTrue(s.roundToInt(1.5) == 2);
+        assertTrue(s.roundToInt(1.499) == 1);
     }
 
     @Test

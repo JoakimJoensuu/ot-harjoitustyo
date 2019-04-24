@@ -9,14 +9,17 @@ import javafx.scene.text.*;
 import javafx.stage.*;
 import investmentsimulator.domain.*;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.*;
+import java.util.*;
 import javafx.scene.chart.*;
 import javafx.scene.input.*;
 
+/**
+ * Luokka tarjoaa graafisen käyttöliittymän sovellukselle ja toimii sovelluksen
+ * käynnistävänä luokkana.
+ *
+ * @author Joakim Joensuu
+ */
 public class InvestmentSimulatorUi extends Application {
 
     private Stage stage;
@@ -33,15 +36,36 @@ public class InvestmentSimulatorUi extends Application {
 
     private InvestmentSimulatorService iSService;
 
+    /**
+     * Ohjelman käynnistävä metodi.
+     *
+     * @param args ohjelman käynnistykseen tarvittava parametri
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     *
+     * Määrittelee luokkamuuttujan "iSService" sovelluksen käynnistämisen
+     * alussa.
+     *
+     * @throws SQLException mikäli tietokannan luominen epäonnistuu
+     */
     @Override
     public void init() throws SQLException {
         this.iSService = new InvestmentSimulatorService();
     }
 
+    /**
+     *
+     * Käynnistää käyttöliittymän, määrittelee luokkamuuttujat "mainMenu",
+     * "SimulationMenu", "editMenu" ja "stage", asettaa ikkunan otsikon ja
+     * asettaa näkyville päävalikon.
+     *
+     * @param stage käyttöliittymän ikkuna
+     * @throws Exception jos käyttöliittymän käynnistäminen ei onnistu
+     */
     @Override
     public void start(Stage stage) throws Exception {
         this.mainMenu = initializeMainMenu();
@@ -53,6 +77,11 @@ public class InvestmentSimulatorUi extends Application {
         stage.show();
     }
 
+    /**
+     * Luo päävalikon.
+     *
+     * @return päävalikkonäkymä
+     */
     private Scene initializeMainMenu() {
         GridPane simulationForm = createSimulationForm();
         simulationForm.setAlignment(Pos.CENTER_LEFT);
@@ -66,6 +95,11 @@ public class InvestmentSimulatorUi extends Application {
         return new Scene(layout, 1600, 900);
     }
 
+    /**
+     * Luo simulaation luomiseen tarvittavan lomakkeen käyttäjän täytettäväksi."
+     *
+     * @return simulaatiolomake
+     */
     private GridPane createSimulationForm() {
         GridPane form = new GridPane();
         form.setHgap(10);
@@ -129,6 +163,12 @@ public class InvestmentSimulatorUi extends Application {
         return form;
     }
 
+    /**
+     * Luo listauksen tietokantaan tallennetuista simulaatioista, josta
+     * tallennettu simulaatio voidaan valita näytettäväksi.
+     *
+     * @return tallennetut simulaatiot listana
+     */
     private ScrollPane createSavedSimulationsList() {
         Text loadLabel = new Text("Lataa simulaatio");
         loadLabel.setFont(Font.font("Calibri", FontWeight.NORMAL, 20));
@@ -145,6 +185,9 @@ public class InvestmentSimulatorUi extends Application {
         return listOfSimulations;
     }
 
+    /**
+     * Piirtää uudelleen listauksen tietokantaan tallennetuista simulaatioista.
+     */
     public void redrawSimulationslist() {
         simulationNodes.getChildren().clear();
 
@@ -154,6 +197,13 @@ public class InvestmentSimulatorUi extends Application {
         });
     }
 
+    /**
+     * Luo sille annetusta simulaatiosta HBox-olion joka pitää sisällään
+     * simulaation nimen ja napin simulaation lataamista varten.
+     *
+     * @param simulation simulaatio josta näytettävä HBox olio luodaan
+     * @return simulaatio ja nappi näytettävänä HBoxina
+     */
     public Node createSimulationNode(Simulation simulation) {
         HBox box = new HBox(10);
         Label label = new Label(simulation.getName());
@@ -172,6 +222,11 @@ public class InvestmentSimulatorUi extends Application {
         return box;
     }
 
+    /**
+     * Rakentaa alustavan simulaationäkymän.
+     *
+     * @return simulaationäkymä
+     */
     private Scene initializeSimulationMenu() {
         simulationLayout = new BorderPane();
 
@@ -180,6 +235,9 @@ public class InvestmentSimulatorUi extends Application {
         return simulationMenu = new Scene(simulationLayout, 1600, 900);
     }
 
+    /**
+     * Rakentaa loput simulaationäkymästä ja asettaa sen näkyville.
+     */
     private void showSimulation() {
         //create simulation Linechart
         CategoryAxis xAxis = new CategoryAxis();
@@ -368,6 +426,12 @@ public class InvestmentSimulatorUi extends Application {
         stage.setScene(simulationMenu);
     }
 
+    /**
+     * Luo näkymän, jossa käyttäjä voi syöttää manuaalisesti kohteen hinnat eri
+     * periodeille.
+     *
+     * @return näkymä hintojen manuaaliselle syöttämiselle
+     */
     private Scene initializeEditMenu() {
         ScrollPane priceForm = createPriceForm();
         HBox editMenuButtons = createEditMenuButtons();
@@ -380,6 +444,11 @@ public class InvestmentSimulatorUi extends Application {
         return new Scene(layout, 1600, 900);
     }
 
+    /**
+     * Luo listauksen, jossa eri päivämäärät ja niille syötettävät hinnat.
+     *
+     * @return lista hintojen syöttämistä varten
+     */
     private ScrollPane createPriceForm() {
         manualPrices = new ArrayList<>();
 
@@ -394,6 +463,12 @@ public class InvestmentSimulatorUi extends Application {
         return listOfSimulations;
     }
 
+    /**
+     * HBox-olion joka pitää sisällään hintojen syöttämisnäkymään liittyvät
+     * alalaidan painikkeet.
+     *
+     * @return alalaidan painikkeet
+     */
     private HBox createEditMenuButtons() {
         Button back = new Button("Takaisin");
         back.setOnAction((event) -> {
@@ -414,6 +489,10 @@ public class InvestmentSimulatorUi extends Application {
         return buttons;
     }
 
+    /**
+     * Piirtää hintojen syöttämiseen tarkoitetun listan päivämäärät ja
+     * tekstikentät.
+     */
     private void redrawPriceslist() {
         priceNodes.getChildren().clear();
         manualPrices.clear();
@@ -425,6 +504,13 @@ public class InvestmentSimulatorUi extends Application {
         });
     }
 
+    /**
+     * Luo sille annetusta päivämäärästä HBox-olion joka pitää sisällään
+     * päivämäärän ja tekstikentän hinnan syöttämiseen kyseiselle päivälle.
+     *
+     * @param date päivämäärä, josta näytettävä HBox olio luodaan
+     * @return päivämäärä ja tekstikenttä näytettävänä HBox-oliona
+     */
     public Node createPriceNode(LocalDate date) {
         HBox box = new HBox(10);
 

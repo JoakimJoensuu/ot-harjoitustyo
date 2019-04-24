@@ -5,8 +5,23 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Random;
 
+/**
+ *
+ * Tarjoaa metodeita simulaation eri arvojen laskemiselle.
+ *
+ * @author Joakim Joensuu
+ */
 public class Generator {
 
+    /**
+     * Generoi periodien määrän verran satunnaisia hintoja annetun vaihtelutason
+     * mukaan. Suurempi vaihtelutaso aiheuttaa hintojen suuremman heittelyn.
+     * Ensimmäinen hinta-arvo on 100.
+     *
+     * @param variation vaihtelutaso
+     * @param amountOfPeriods periodien määrä
+     * @return taulukko hinnoista sentteinä
+     */
     public int[] generatePrices(double variation, int amountOfPeriods) {
         int[] generatedPrices = new int[amountOfPeriods + 1];
         Random r = new Random();
@@ -20,6 +35,16 @@ public class Generator {
         return generatedPrices;
     }
 
+    /**
+     * Luo taulukon, jossa periodien määrän verran päiviä annetun periodityypin
+     * välein. Mikäli annettu periodin tyyppi on vihreellinen palautetaan tyhjä
+     * taulukko, jonka koko on 1.
+     *
+     * @param startingDate aloituspäivä
+     * @param amountOfPeriods periodien määrä
+     * @param periodType periodin tyyppi "Päivä" "Viikko" "Kuukausi" tai "Vuosi"
+     * @return päivämäärät taulukkona
+     */
     public LocalDate[] datesCreator(LocalDate startingDate, int amountOfPeriods, String periodType) {
         if (periodType.equals("Päivä")) {
             return createDays(startingDate, amountOfPeriods);
@@ -34,6 +59,13 @@ public class Generator {
         }
     }
 
+    /**
+     * Luo taulukon jossa periodien määrän verran päiviä vuorokauden välein.
+     *
+     * @param startingDate aloituspäivä
+     * @param amountOfPeriods periodien määrä
+     * @return luodut päivämäärät taulukkona
+     */
     public LocalDate[] createDays(LocalDate startingDate, int amountOfPeriods) {
         LocalDate[] generatedDates = new LocalDate[amountOfPeriods + 1];
         generatedDates[0] = startingDate;
@@ -43,6 +75,13 @@ public class Generator {
         return generatedDates;
     }
 
+    /**
+     * Luo taulukon jossa periodien määrän verran päiviä viikon välein.
+     *
+     * @param startingDate aloituspäivä
+     * @param amountOfPeriods periodien määrä
+     * @return luodut päivämäärät taulukkona
+     */
     public LocalDate[] createWeeks(LocalDate startingDate, int amountOfPeriods) {
         LocalDate[] generatedDates = new LocalDate[amountOfPeriods + 1];
         generatedDates[0] = startingDate;
@@ -52,6 +91,13 @@ public class Generator {
         return generatedDates;
     }
 
+    /**
+     * Luo taulukon jossa periodien määrän verran päiviä kuukauden välein.
+     *
+     * @param startingDate aloituspäivä
+     * @param amountOfPeriods periodien määrä
+     * @return luodut päivämäärät taulukkona
+     */
     public LocalDate[] createMonths(LocalDate startingDate, int amountOfPeriods) {
         LocalDate[] generatedDates = new LocalDate[amountOfPeriods + 1];
         generatedDates[0] = startingDate;
@@ -61,6 +107,13 @@ public class Generator {
         return generatedDates;
     }
 
+    /**
+     * Luo taulukon jossa periodien määrän verran päiviä vuoden välein.
+     *
+     * @param startingDate aloituspäivä
+     * @param amountOfPeriods periodien määrä
+     * @return luodut päivämäärät taulukkona
+     */
     public LocalDate[] createYears(LocalDate startingDate, int amountOfPeriods) {
         LocalDate[] generatedDates = new LocalDate[amountOfPeriods + 1];
         generatedDates[0] = startingDate;
@@ -70,6 +123,16 @@ public class Generator {
         return generatedDates;
     }
 
+    /**
+     *
+     * Laskee Cost Averaging -strategian mukaan toteutetun sijoitussalkun
+     * omistusosuudet eri periodeille.
+     *
+     * @param prices hinnat taulukkona
+     * @param sum periodeittain sijoitettava summa
+     * @param amountOfPeriods periodien määrä
+     * @return omistusosuudet taulukkona eri periodeille
+     */
     public double[] generateCostAverageShares(int[] prices, int sum, int amountOfPeriods) {
         double[] generatedCostAverageShares = new double[amountOfPeriods + 1];
         double sharesToBuy;
@@ -81,6 +144,16 @@ public class Generator {
         return generatedCostAverageShares;
     }
 
+    /**
+     *
+     * Laskee Value Averaging -strategian mukaan toteutetun sijoitussalkun
+     * omistusosuudet eri periodeille.
+     *
+     * @param prices hinnat taulukkona
+     * @param sum periodeittain sijoitettava summa
+     * @param amountOfPeriods periodien määrä
+     * @return omistusosuudet taulukkona eri periodeille
+     */
     public double[] generateValueAverageShares(int[] prices, int sum, int amountOfPeriods) {
         double[] generatedValueAverageShares = new double[amountOfPeriods + 1];
         int periodTotalValueTarget;
@@ -93,6 +166,16 @@ public class Generator {
         return generatedValueAverageShares;
     }
 
+    /**
+     * Laskee Cost Averaging -strategian mukaan toteutetun sijoitussalkun arvon
+     * eri periodeille
+     *
+     *
+     * @param prices kohteen hinnat eri periodeina
+     * @param costAverageShares Cost Averaging sijoitussuunnitelman mukaiset
+     * omistusosuudet
+     * @return salkun arvot taulukkona eri periodeina
+     */
     public int[] generateCostAverageValues(int[] prices, double[] costAverageShares) {
         int[] generatedCostAverageValues = new int[costAverageShares.length];
         for (int i = 1; i < generatedCostAverageValues.length; i++) {
@@ -102,6 +185,16 @@ public class Generator {
         return generatedCostAverageValues;
     }
 
+    /**
+     * Laskee Value Averaging -strategian mukaan toteutetun sijoitussalkun arvon
+     * eri periodeille
+     *
+     *
+     * @param prices kohteen hinnat eri periodeina
+     * @param valueAverageShares Value Averaging sijoitussuunnitelman mukaiset
+     * omistusosuudet
+     * @return salkun arvot taulukkona eri periodeina
+     */
     public int[] generateValueAverageValues(int[] prices, double[] valueAverageShares) {
         int[] generatedValueAverageValues = new int[valueAverageShares.length];
         for (int i = 1; i < generatedValueAverageValues.length; i++) {
@@ -111,6 +204,17 @@ public class Generator {
         return generatedValueAverageValues;
     }
 
+    /**
+     *
+     * Laskee Value Averaging -strategian mukaan toteutetun sijoitussalkun ostot
+     * eri periodeina. Myynnit lasketaan negatiivisina ostoina.
+     *
+     *
+     * @param valueAverageValues Value Averaging sijoitussuunnitelman mukaiset
+     * salkun arvot
+     * @param sum kohteen hinnat eri periodeina
+     * @return salkun ostot taulukkona eri periodeina
+     */
     public int[] generateValueAveragePurchases(int[] valueAverageValues, int sum) {
         int[] generatedValueAveragePurchases = new int[valueAverageValues.length];
         int periodsTargetValue = 0;
@@ -121,6 +225,17 @@ public class Generator {
         return generatedValueAveragePurchases;
     }
 
+    /**
+     *
+     * Laskee Cost Averaging -strategian mukaan toteutetun sijoitussalkun ostot
+     * eri periodeina. Myynnit lasketaan negatiivisina ostoina.
+     *
+     *
+     * @param costAverageValues Cost Averaging sijoitussuunnitelman mukaiset
+     * salkun arvot
+     * @param sum kohteen hinnat eri periodeina
+     * @return salkun ostot taulukkona eri periodeina
+     */
     public int[] generateCostAveragePurchases(int[] costAverageValues, int sum) {
         int[] generatedCostAveragePurchases = new int[costAverageValues.length];
 
@@ -130,6 +245,16 @@ public class Generator {
         return generatedCostAveragePurchases;
     }
 
+    /**
+     * Laskee Cost Averaging -strategian mukaan toteutetun sijoitussalkun
+     * kertyneet tuotot eri periodeina
+     *
+     * @param costAveragePurchases Cost Averaging sijoitussuunnitelman mukaiset
+     * ostot
+     * @param costAverageValues Cost Averaging sijoitussuunnitelman mukaiset
+     * salkun arvot
+     * @return salkun kertyneet tuotot eri periodeina
+     */
     public int[] generateCostAverageProfit(int[] costAveragePurchases, int[] costAverageValues) {
         int[] generatedCostAverageProfit = new int[costAveragePurchases.length];
         int totalPurchases = 0;
@@ -142,6 +267,15 @@ public class Generator {
         return generatedCostAverageProfit;
     }
 
+    /**
+     * Laskee Value Averaging -strategian mukaan toteutetun sijoitussalkun
+     * kertyneet tuotot eri periodeina
+     *
+     * @param valueAveragePurchases Value Averaging sijoitussuunnitelman
+     * mukaiset ostot
+     * @param sum periodeittain sijoitettava summa
+     * @return salkun kertyneet tuotot eri periodeina
+     */
     public int[] generateValueAverageProfit(int[] valueAveragePurchases, int sum) {
         int[] generatedValueAverageProfit = new int[valueAveragePurchases.length];
         int accumulatedProfit = 0;
@@ -153,6 +287,15 @@ public class Generator {
         return generatedValueAverageProfit;
     }
 
+    /**
+     *
+     * Laskee salkun tuottoprosentin eri periodeina riippuen tuotoista ja
+     * sijoitetusta pääomasta.
+     *
+     * @param profit kohteen hinnat taulukkona eri periodeina
+     * @param invested salkun kertyneet ostot (-myynnit) periodeittain
+     * @return tuottoprosentti eri periodeina
+     */
     public double[] generateROI(int[] profit, int[] invested) {
         double[] rois = new double[profit.length];
 
@@ -167,6 +310,13 @@ public class Generator {
         return rois;
     }
 
+    /**
+     * Laskee kertyneet ostot jokaiselle periodille. Myynnit vähennetään
+     * ostoista.
+     *
+     * @param purchases periodeittain tehtävät ostot/myynnit
+     * @return kertyneet ostot periodeittain
+     */
     public int[] generateInvested(int[] purchases) {
         int[] generatedInvested = new int[purchases.length];
 
@@ -178,10 +328,24 @@ public class Generator {
         return generatedInvested;
     }
 
+    /**
+     * Pyöristää liukuluvun lähimpään kokonaislukuun.
+     *
+     * @param d pyöristettävä liukuluku
+     * @return pyöristetty luku kokonaislukuna
+     */
     public int roundToInt(double d) {
         return (int) Math.round(d);
     }
 
+    /**
+     *
+     * Pyöristää liukuluvun halutun desimaalin tarkuuteen
+     *
+     * @param d pyöristettävä liukuluku
+     * @param decimals haluttu desimaalitarkuus
+     * @return pyöristetty liukuluku
+     */
     public double roundToNDecimals(double d, int decimals) {
         BigDecimal bd = new BigDecimal(Double.toString(d));
         bd = bd.setScale(decimals, RoundingMode.HALF_UP);

@@ -6,17 +6,20 @@ Repositorio Helsingin Yliopiston Ohjelmistotekniikka-kurssin palautuksille
 
 Sijoitussimulaattorin tarkoitus tuoda käyttäjälle graafinen esitystapa Cost Averaging ja Value Averaging strategioiden toteutumiselle eri tapauksissa. Käyttäjä voi generoida satunnaisesti kuvitellun kohteen hinnankehityksen tai luoda ne manuaalisesti.
 
-#### Tarkemmat kuvaukset sovelluksesta ja sen toiminnasta löytyvät seuraavien linkkien alta:
+Tarkemmat kuvaukset sovelluksesta ja sen toiminnasta löytyvät dokumentaatiosta.
+
+## Dokumentaatio
 
 [Vaatimusmäärittely](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
-[Arkkitehtuuri](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+[Arkkitehtuurikuvaus](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
-[Release](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/viikko5)
+## Releaset 
 
-- [Releasen .jar-tiedosto](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/download/viikko5/InvestmentSimulator.jar)
+[Viikko 6](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/viikko6)
+[Viikko 5](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Komentorivitoiminnot
 

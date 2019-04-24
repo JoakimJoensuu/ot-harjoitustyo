@@ -8,15 +8,38 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Luokka tarjoaa sovelluksen muille luokille metodeja tietokannan käyttöä
+ * varten.
+ * 
+ * @author Joakim Joensuu
+ */
 public class SimulationDao {
 
-    private String database;
+    /**
+     * Sovelluksen tietokannan nimi, joka määritellään konstruktorissa.
+     */
+    private final String database;
 
+    /**
+     * SimulationDao-luokan konstruktori, joka määrittelee luokkamuuttujan
+     * database ja alustaa tietokannan.
+     *
+     * @see investmentsimulator.dao.SimulationDao#initDatabase()
+     *
+     * @param databaseName tietokannan tiedostonimi
+     *
+     * @throws SQLException mikäli tietokannan luonnissa tapahtuu virhe
+     */
     public SimulationDao(String databaseName) throws SQLException {
         this.database = databaseName;
         initDatabase();
     }
 
+    /**
+     * Luo kaksitauluisen tietokannan, mikäli tietokantaa ei ole jo luotu.
+     *
+     */
     public void initDatabase() {
         try {
             Connection connection = connect();
@@ -39,6 +62,11 @@ public class SimulationDao {
 
     }
 
+    /**
+     * Metodin avulla saadaan luotua yhteys tietokantaan.
+     *
+     * @return connection-olio, joka on yhdistetty tietokantaan
+     */
     private Connection connect() {
         Connection conn = null;
         try {
@@ -50,6 +78,26 @@ public class SimulationDao {
         return conn;
     }
 
+    /**
+     *
+     * Tallentaa simulaation ne tiedot tietokantaan, jotka tarvitaan simulaation
+     * uudelleen generoimista varten. Hinnat tallennetaan "price"-tauluun loput
+     * tiedot "simulation"-tauluun.
+     *
+     * @see
+     * investmentsimulator.dao.SimulationDao#saveSimulationDetails(java.sql.Connection,
+     * java.lang.String, int, java.time.LocalDate, java.lang.String, int)
+     * @see investmentsimulator.dao.SimulationDao#saveSimulationPrices(int,
+     * int[], java.sql.Connection)
+     *
+     * @param name simulaation nimi
+     * @param sum periodeittain sijoitettava summa
+     * @param startingDate päivämäärä, josta simulaatio alkaa
+     * @param periodType periodin tyyppi: "Päivä" "Viikko" "Kuukausi" tai
+     * "Vuosi"
+     * @param amountOfPeriods periodien määrä
+     * @param prices lista simulaation kohteen hinnoista
+     */
     public void saveSimulation(String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods, int[] prices) {
         try {
             Connection connection = connect();
@@ -57,7 +105,6 @@ public class SimulationDao {
             saveSimulationDetails(connection, name, sum, startingDate, periodType, amountOfPeriods);
 
             int id = getLastId(connection);
-            System.out.println(id);
 
             saveSimulationPrices(id, prices, connection);
             connection.close();
@@ -67,6 +114,17 @@ public class SimulationDao {
 
     }
 
+    /**
+     * Tallentaa annetut tiedot "simulation"-tietokantaan.
+     *
+     * @param connection connection-olio, joka on yhdistetty tietokantaan
+     * @param name simulaation nimi
+     * @param sum periodeittain sijoitettava summa
+     * @param startingDate päivämäärä, josta simulaatio alkaa
+     * @param periodType periodin tyyppi: "Päivä" "Viikko" "Kuukausi" tai
+     * "Vuosi"
+     * @param amountOfPeriods periodien määrä
+     */
     private void saveSimulationDetails(Connection connection, String name, int sum, LocalDate startingDate, String periodType, int amountOfPeriods) {
         try {
             PreparedStatement saveDetailsStatement = connection.prepareStatement(
@@ -86,6 +144,13 @@ public class SimulationDao {
         }
     }
 
+    /**
+     * Kertoo viimeisimmän tietokantaan tallennetun rivin id-numeron.
+     *
+     *
+     * @param connection connection-olio, joka on yhdistetty tietokantaan
+     * @return viimeisimmän rivin id numero
+     */
     private int getLastId(Connection connection) {
         int id = -1;
         try {
@@ -103,6 +168,13 @@ public class SimulationDao {
         return id;
     }
 
+    /**
+     * Tallentaa simulaation hinnat järjestyksessä tietokantaan.
+     *
+     * @param simulationId simulaation id-numero, johon hinnat liittyvät
+     * @param prices hinnat taulukkona
+     * @param connection connection-olio, joka on yhdistetty tietokantaan
+     */
     private void saveSimulationPrices(int simulationId, int[] prices, Connection connection) {
         for (int i = 0; i < prices.length; i++) {
             try {
@@ -123,6 +195,12 @@ public class SimulationDao {
         }
     }
 
+    /**
+     * Palauttaa tietokantaan tallennetut simulaatiot Simulation-olioita
+     * sisältävänä listana.
+     *
+     * @return Simulation-olioita sisältävä lista
+     */
     public List<Simulation> getAllSimulations() {
         List<Simulation> savedSimulations = new ArrayList<>();
         try {
@@ -148,6 +226,13 @@ public class SimulationDao {
         return savedSimulations;
     }
 
+    /**
+     * Palauttaa tietyn simulaation hinnat listana.
+     *
+     * @param id Simulaation id-numero
+     * @return kokonaislukuja sisältävä lista hinnoista järjestyksessä
+     * ensimmäisestä viimeiseen
+     */
     public List<Integer> getSimulationPrices(int id) {
         List<Integer> prices = new ArrayList<>();
         try {

@@ -11,7 +11,6 @@ import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -26,15 +25,6 @@ public class SimulationTest {
     @Before
     public void setUp() {
         this.s = new Simulation();
-    }
-
-
-
-    @Test
-    public void roundToIntRoundsCorrectly() {
-        assertTrue(s.roundToInt(1.99) == 2);
-        assertTrue(s.roundToInt(1.5) == 2);
-        assertTrue(s.roundToInt(1.499) == 1);
     }
 
     @Test
