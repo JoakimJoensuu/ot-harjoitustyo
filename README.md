@@ -73,3 +73,11 @@ mvn jxr:jxr checkstyle:checkstyle
 ```
 Tarkastusraportti löytyy tiedostosta _./target/site/checkstyle.html_
 
+### JavaDoc
+
+JavaDoc luodaan juurikansiosta komennolla
+
+```
+mvn javadoc:javadoc
+```
+JavaDoc löytyy tiedostosta _./target/site/apidocs/index.html_
