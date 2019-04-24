@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 /**
  * Luokka tarjoaa sovelluksen muille luokille metodeja tietokannan käyttöä
  * varten.
- * 
+ *
  * @author Joakim Joensuu
  */
 public class SimulationDao {

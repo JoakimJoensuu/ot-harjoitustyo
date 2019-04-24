@@ -108,7 +108,6 @@ public class Simulation {
     /**
      * Etsii indeksin jollekkin päivämäärälle, jotka löytyvät simulaatiosta.
      *
-     *
      * @param date päivämäärä, jonka indeksiä etsitään
      * @return simulaation päivämäärän indeksi, -1 jos päivämäärää ei löydy
      * simulaatiosta
@@ -148,9 +147,7 @@ public class Simulation {
      * Muuntaa sentit merkkijonoksi, jossa tarvittaessa etumerkki (-), eurot ja
      * sentit pilkulla eroteltuna ja lopussa euromerkki.
      *
-     * Esimerkki: 
-     * Syöte: 1 lopputulos: - 0,01 € 
-     * Syöte: -103 lopputulos: -1,03 €
+     * Esimerkki: Syöte: 1 lopputulos: - 0,01 € Syöte: -103 lopputulos: -1,03 €
      *
      * @param money rahamäärä sentteinä
      * @return merkkijonoon muutettu rahamäärä

@@ -11,14 +11,15 @@
 |   	| 1	    | testien luomista Simulaatio-luokalle		|
 | 1.4.	| 5	    | sovelluslogiikan tekemistä		|
 | 2.4.	| 5	    | Päävalikon viimeistely ja simulaationäkymän teko		|
-|	| 2	    | Simulaationäkymän ja sovelluslogiikan yhteenviilaaminen	|
+|	    | 2	    | Simulaationäkymän ja sovelluslogiikan yhteenviilaaminen	|
 |   	| 1	    | suoritettavan Jar-tiedoston ja testikattavuusraporttien luominen tehty mahdolliseksi ja komennot lisätty README-tiedostoon	|	
 | 8.4.  | 6     | tietokannan yhdistäminen sovellukseen, Daon luominen ja tallennus sekä latausmahdollisuuden luominen |  
 | 9.4.  | 1     | Checkstylen lisääminen ja sen havaitsemien virheiden korjaaminen |
 |       | 0.5   | Pakkauskaavion tekeminen      |
-| 15.4.	| 3	| Luotu toiminnallisuus hintojen manuaaliselle lisäämiselle	|
-| 23.4.	| 3	| Lisätty painikkeet ja toiminnallisuus viivakaavion tietojen muuttamiselle suorituksen aikana	|
-|	    | 1	| Korjattu ROIn laskentatapa siirretty metodeja Simulation-luokasta Generator-luokkaan	|	
-| 24.4. | 3  | Luotu JavaDoc luokille ja metodeille  |
+| 15.4.	| 3	    | Luotu toiminnallisuus hintojen manuaaliselle lisäämiselle	|
+| 23.4.	| 3	    | Lisätty painikkeet ja toiminnallisuus viivakaavion tietojen muuttamiselle suorituksen aikana	|
+|	    | 1	    | Korjattu ROIn laskentatapa siirretty metodeja Simulation-luokasta Generator-luokkaan	|	
+| 24.4. | 3     | Luotu JavaDoc luokille ja metodeille  |
+|       | 20:00-???      |  Arkkitehtuurikuvauksen kuvien ja tekstin luomista        |
 | yht   | 44.5	|						| 
 
