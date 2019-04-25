@@ -21,5 +21,6 @@
 |	    | 1	    | Korjattu ROIn laskentatapa siirretty metodeja Simulation-luokasta Generator-luokkaan	|	
 | 24.4. | 3     | Luotu JavaDoc luokille ja metodeille  |
 |       | 5.5      |  Arkkitehtuurikuvauksen kuvien ja tekstin luomista        |
-| yht   | 50	|						| 
+|  25.4 |  1 | Käyttöohjeen tekeminen |
+| yht   | 51	|						| 
 
