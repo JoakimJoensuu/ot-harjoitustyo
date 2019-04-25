@@ -16,6 +16,8 @@ Tarkemmat kuvaukset sovelluksesta ja sen toiminnasta löytyvät dokumentaatiosta
 
 [Arkkitehtuurikuvaus](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
+[Käyttöohje](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
 ## Releaset 
 
 [Viikko 6](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/viikko6)
