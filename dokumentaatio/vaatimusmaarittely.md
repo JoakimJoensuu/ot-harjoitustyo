@@ -49,9 +49,9 @@ Simulaationäkymä, josta voidaan tarkastella eri sijoitustrategioiden kehityst�
 
 ## Jatkokehitysideoita
 
-Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seuraavilla toiminnallisuuksilla
+- tallennetun simulaation poistaminen
 
-- simulaationäkymän viivakaavioon kohteen hinnan lisäksi strategioiden ostojen keskikurssit eri päivinä
+- simulaationäkymän viivakaavioon kohteen hinnan lisäksi strategioiden ostojen keskikurssit
 
 - mahdollisuus muokata jo luodun simulaation kursseja ilman uuden luomista
 
