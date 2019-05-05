@@ -26,5 +26,5 @@
 | 4.5.  | 4     | Validoinnin luomista lomakkeille ja näiden testien tekoa |
 | 5.5   | 2     | Validoinnin luomista lomakkeille ja näiden testien tekoa |
 |       | 1     | Testausdokumentin teko      |
-| yht   | 60	|						| 
+| yht   | 59	|						| 
 
