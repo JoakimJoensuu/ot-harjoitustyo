@@ -124,6 +124,8 @@ public class InvestmentSimulatorUi extends Application {
         form.add(periods, 0, 4);
         Label variation = new Label("Vaihtelutaso:");
         form.add(variation, 0, 5);
+        Label error = new Label("");
+        form.add(error, 0, 6);
 
         //form fields
         TextField sumField = new TextField();
@@ -149,7 +151,7 @@ public class InvestmentSimulatorUi extends Application {
         variationField.setBlockIncrement(10);
         form.add(variationField, 1, 5);
 
-        //form numberfields listener
+        //form numberfields listeners
         sumField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d*")) {
                 sumField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -168,10 +170,10 @@ public class InvestmentSimulatorUi extends Application {
             if (iSService.validateFormFields(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), 0.0)) {
                 iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), 0.0);
                 redrawPriceslist();
-
+                error.setText("");
                 stage.setScene(editMenu);
             } else {
-
+                error.setText("Tarkista lomakkeen kohdat.");
             }
         });
 
@@ -180,9 +182,10 @@ public class InvestmentSimulatorUi extends Application {
         generate.setOnAction((event) -> {
             if (iSService.validateFormFields(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue())) {
                 iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue());
+                error.setText("");
                 showSimulation();
             } else {
-
+                error.setText("Tarkista lomakkeen kohdat.");
             }
         });
 
@@ -501,19 +504,22 @@ public class InvestmentSimulatorUi extends Application {
             stage.setScene(mainMenu);
         });
 
+        Label error = new Label("");
+
         Button create = new Button("Luo");
         create.setOnAction((event) -> {
             if (iSService.validateManualPrices(manualPrices)) {
 
                 iSService.setSimulationPrices(manualPrices);
                 iSService.getSelectedSimulation().initializeArrays();
+                error.setText("");
                 showSimulation();
             } else {
-
+                error.setText("Tarkista hinnat.");
             }
         });
 
-        HBox buttons = new HBox(back, create);
+        HBox buttons = new HBox(back, create, error);
 
         buttons.setPadding(new Insets(10, 10, 10, 10));
 
