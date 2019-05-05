@@ -22,5 +22,8 @@
 | 24.4. | 3     | Luotu JavaDoc luokille ja metodeille  |
 |       | 5.5      |  Arkkitehtuurikuvauksen kuvien ja tekstin luomista        |
 |  25.4 |  1 | Käyttöohjeen tekeminen |
-| yht   | 51	|						| 
+| 4.5. |   1     | Koodin siistimistä, dokumentaation läpikäynti. |
+|4.5. | 4 | Validoinnin luomista lomakkeille ja näiden testien tekoa |
+| 5.5 | 2 | Validoinnin luomista lomakkeille ja näiden testien tekoa |
+| yht   | 59	|						| 
 
