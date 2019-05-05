@@ -256,12 +256,53 @@ public class InvestmentSimulatorService {
         return data;
     }
 
+    /**
+     * Tarkistaa simulaation luomiseen käytetyn lomakkeen arvot.
+     *
+     * @param sum periodeittain sijoitettava summa
+     * @param date simulaation aloituspäivä
+     * @param periodType periodin tyyppi, Viikko, Kuukausi, Vuosi tai Päivä
+     * @param periods periodien määrä
+     * @param variation kurssihintojen vaihtelutaso
+     * @return true, jos lomakkeen arvot ovat oikeat, false jos eivät
+     */
+    public boolean validateFormFields(String sum, LocalDate date, Object periodType, String periods, double variation) {
+        if (sum == null || !(sum.matches("[0-9]+")) || sum.length() < 1 || Integer.parseInt(sum) < 1) {
+            return false;
+        } else if (date == null) {
+            return false;
+        } else if (!(String.valueOf(periodType).equals("Päivä")) && !(String.valueOf(periodType).equals("Viikko")) && !(String.valueOf(periodType).equals("Kuukausi")) && !(String.valueOf(periodType).equals("Vuosi"))) {
+            return false;
+        } else if (periods == null || !(periods.matches("[0-9]+")) || periods.length() < 1 || Integer.parseInt(periods) < 1) {
+            return false;
+        } else if (variation > 100 || variation < 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean validateManualPrices(List<TextField> manualPrices) {
+        for (TextField priceField : manualPrices) {
+            String sum = priceField.getText();
+            if (sum == null || !(sum.matches("[0-9]+")) || sum.length() < 1 || Integer.parseInt(sum) < 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public Simulation getSelectedSimulation() {
         return selectedSimulation;
     }
 
     public List<Simulation> getSavedSimulations() {
         return simulationDao.getAllSimulations();
+    }
+
+    public void setSelectedSimulation(Simulation selectedSimulation) {
+        this.selectedSimulation = selectedSimulation;
     }
 
 }

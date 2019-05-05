@@ -5,14 +5,14 @@ package InvestmentSimulator;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 import investmentsimulator.domain.Simulation;
 import java.time.LocalDate;
-import java.util.Arrays;
-import org.junit.After;
-import org.junit.AfterClass;
+import java.time.Month;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 
 /**
  *
@@ -78,6 +78,22 @@ public class SimulationTest {
         assertTrue(s.getValueAverageInvested() != null);
         assertTrue(s.getCostAverageInvested() != null);
         assertTrue(s.getPrices() != null);
+    }
+
+    @Test
+    public void getIndexOfTheDateReturnsRightValue() {
+        LocalDate[] days = new LocalDate[3];
+        days[0] = LocalDate.of(2018, Month.JANUARY, 1);
+        days[1] = LocalDate.of(2018, Month.JANUARY, 2);
+        days[2] = LocalDate.of(2018, Month.JANUARY, 3);
+
+        s.setDates(days);
+
+        assertTrue(s.getIndexOfTheDate(LocalDate.of(2018, Month.JANUARY, 5)) == -1);
+        assertTrue(s.getIndexOfTheDate(LocalDate.of(2018, Month.JANUARY, 1)) == 0);
+        assertTrue(s.getIndexOfTheDate(LocalDate.of(2018, Month.JANUARY, 2)) == 1);
+        assertTrue(s.getIndexOfTheDate(LocalDate.of(2018, Month.JANUARY, 3)) == 2);
+
     }
 
 }

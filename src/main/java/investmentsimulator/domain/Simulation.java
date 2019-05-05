@@ -93,8 +93,8 @@ public class Simulation {
         this.dates = generator.datesCreator(startingDate, amountOfPeriods, periodType);
         this.costAverageShares = generator.generateCostAverageShares(prices, sum, amountOfPeriods);
         this.valueAverageShares = generator.generateValueAverageShares(prices, sum, amountOfPeriods);
-        this.costAverageValues = generator.generateCostAverageValues(prices, costAverageShares);
-        this.valueAverageValues = generator.generateValueAverageValues(prices, valueAverageShares);
+        this.costAverageValues = generator.generateValues(prices, costAverageShares);
+        this.valueAverageValues = generator.generateValues(prices, valueAverageShares);
         this.valueAveragePurchases = generator.generateValueAveragePurchases(valueAverageValues, sum);
         this.costAveragePurchases = generator.generateCostAveragePurchases(costAverageValues, sum);
         this.costAverageProfit = generator.generateCostAverageProfit(costAveragePurchases, costAverageValues);
@@ -251,5 +251,11 @@ public class Simulation {
 
     public double[] getValueAverageShares() {
         return valueAverageShares;
+
     }
+
+    public void setDates(LocalDate[] dates) {
+        this.dates = dates;
+    }
+
 }

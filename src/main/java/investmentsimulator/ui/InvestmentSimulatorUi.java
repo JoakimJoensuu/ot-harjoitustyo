@@ -11,6 +11,7 @@ import investmentsimulator.domain.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+import javafx.beans.value.*;
 import javafx.scene.chart.*;
 import javafx.scene.input.*;
 
@@ -101,15 +102,18 @@ public class InvestmentSimulatorUi extends Application {
      * @return simulaatiolomake
      */
     private GridPane createSimulationForm() {
+        //form pane
         GridPane form = new GridPane();
         form.setHgap(10);
         form.setVgap(10);
         form.setPadding(new Insets(25, 25, 25, 25));
 
+        //"new" label
         Text newText = new Text("Uusi");
         newText.setFont(Font.font("Calibri", FontWeight.NORMAL, 20));
         form.add(newText, 0, 0, 2, 1);
 
+        //form labels
         Label sum = new Label("Periodeittain sijoitettava summa:");
         form.add(sum, 0, 1);
         Label startDate = new Label("Alkupäivä:");
@@ -121,6 +125,7 @@ public class InvestmentSimulatorUi extends Application {
         Label variation = new Label("Vaihtelutaso:");
         form.add(variation, 0, 5);
 
+        //form fields
         TextField sumField = new TextField();
         form.add(sumField, 1, 1);
         DatePicker dateField = new DatePicker();
@@ -144,20 +149,41 @@ public class InvestmentSimulatorUi extends Application {
         variationField.setBlockIncrement(10);
         form.add(variationField, 1, 5);
 
+        //form numberfields listener
+        sumField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                sumField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        periodsField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                periodsField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        //Buttons under form
         Button createManually = new Button("Luo manuaalisesti");
         form.add(createManually, 1, 6);
         createManually.setOnAction((event) -> {
-            iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), 0.0);
-            redrawPriceslist();
+            if (iSService.validateFormFields(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), 0.0)) {
+                iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), 0.0);
+                redrawPriceslist();
 
-            stage.setScene(editMenu);
+                stage.setScene(editMenu);
+            } else {
+
+            }
         });
 
         Button generate = new Button("Generoi");
         form.add(generate, 1, 7);
         generate.setOnAction((event) -> {
-            iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue());
-            showSimulation();
+            if (iSService.validateFormFields(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue())) {
+                iSService.generateSimulation(sumField.getText(), dateField.getValue(), periodTypeField.getValue(), periodsField.getText(), variationField.getValue());
+                showSimulation();
+            } else {
+
+            }
         });
 
         return form;
@@ -477,9 +503,14 @@ public class InvestmentSimulatorUi extends Application {
 
         Button create = new Button("Luo");
         create.setOnAction((event) -> {
-            iSService.setSimulationPrices(manualPrices);
-            iSService.getSelectedSimulation().initializeArrays();
-            showSimulation();
+            if (iSService.validateManualPrices(manualPrices)) {
+
+                iSService.setSimulationPrices(manualPrices);
+                iSService.getSelectedSimulation().initializeArrays();
+                showSimulation();
+            } else {
+
+            }
         });
 
         HBox buttons = new HBox(back, create);
@@ -518,6 +549,12 @@ public class InvestmentSimulatorUi extends Application {
         label.setMinHeight(28);
 
         TextField priceField = new TextField();
+        //form numberfields listener
+        priceField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                priceField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
         manualPrices.add(priceField);
 
         Region spacer = new Region();

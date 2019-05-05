@@ -166,42 +166,23 @@ public class Generator {
         return generatedValueAverageShares;
     }
 
+
     /**
-     * Laskee Cost Averaging -strategian mukaan toteutetun sijoitussalkun arvon
-     * eri periodeille
+     * Laskee jomman kumman strategian mukaan toteutetun sijoitussalkun arvot
+     * eri periodeina listaan.
      *
      *
      * @param prices kohteen hinnat eri periodeina
-     * @param costAverageShares Cost Averaging sijoitussuunnitelman mukaiset
-     * omistusosuudet
+     * @param shares sijoitussuunnitelman mukaiset omistusosuudet
      * @return salkun arvot taulukkona eri periodeina
      */
-    public int[] generateCostAverageValues(int[] prices, double[] costAverageShares) {
-        int[] generatedCostAverageValues = new int[costAverageShares.length];
-        for (int i = 1; i < generatedCostAverageValues.length; i++) {
-            generatedCostAverageValues[i] = roundToInt(prices[i] * costAverageShares[i]);
+    public int[] generateValues(int[] prices, double[] shares) {
+        int[] generatedValues = new int[shares.length];
+        for (int i = 1; i < generatedValues.length; i++) {
+            generatedValues[i] = roundToInt(prices[i] * shares[i]);
 
         }
-        return generatedCostAverageValues;
-    }
-
-    /**
-     * Laskee Value Averaging -strategian mukaan toteutetun sijoitussalkun arvon
-     * eri periodeille
-     *
-     *
-     * @param prices kohteen hinnat eri periodeina
-     * @param valueAverageShares Value Averaging sijoitussuunnitelman mukaiset
-     * omistusosuudet
-     * @return salkun arvot taulukkona eri periodeina
-     */
-    public int[] generateValueAverageValues(int[] prices, double[] valueAverageShares) {
-        int[] generatedValueAverageValues = new int[valueAverageShares.length];
-        for (int i = 1; i < generatedValueAverageValues.length; i++) {
-            generatedValueAverageValues[i] = roundToInt(prices[i] * valueAverageShares[i]);
-
-        }
-        return generatedValueAverageValues;
+        return generatedValues;
     }
 
     /**

@@ -1,10 +1,8 @@
-
 package InvestmentSimulator;
 
 import investmentsimulator.domain.Generator;
 import static org.junit.Assert.assertTrue;
 import org.junit.*;
-
 
 public class GeneratorTest {
 
@@ -40,7 +38,7 @@ public class GeneratorTest {
     }
 
     @Test
-    public void generateValueAverageValuesWorksCorrectly() {
+    public void generateValuesWorksCorrectly() {
         int[] prices1 = {10000, 20000, 30000, 40000};
         double[] shares1 = {0.0, 1.0, 1.0, 1.0};
 
@@ -53,30 +51,26 @@ public class GeneratorTest {
         int[] prices4 = {10000, 20000, 50000, 70000};
         double[] shares4 = {0.0, 1.0, 1.0, 0.6};
 
-        assertTrue(s.generateValueAverageValues(prices1, shares1)[3] == 40000);
-        assertTrue(s.generateValueAverageValues(prices2, shares2)[3] == 600000);
-        assertTrue(s.generateValueAverageValues(prices3, shares3)[3] == 4000);
-        assertTrue(s.generateValueAverageValues(prices4, shares4)[3] == 42000);
-    }
+        int[] prices5 = {10000, 20000, 30000, 40000};
+        double[] shares5 = s.generateCostAverageShares(prices5, 10000, 3);
 
-    @Test
-    public void generateCostAverageValuesWorksCorrectly() {
-        int[] prices1 = {10000, 20000, 30000, 40000};
-        double[] shares1 = s.generateCostAverageShares(prices1, 10000, 3);
+        int[] prices6 = {10000, 10, 1, 20};
+        double[] shares6 = {0.0, 1.0, 1001.0, 11001.0};
 
-        int[] prices2 = {10000, 10, 1, 20};
-        double[] shares2 = {0.0, 1.0, 1001.0, 11001.0};
+        int[] prices7 = {10000, 18000, 300, 40};
+        double[] shares7 = {0.0, 1.0, 1.5555555555555556, 34.88888888888889};
 
-        int[] prices3 = {10000, 18000, 300, 40};
-        double[] shares3 = {0.0, 1.0, 1.5555555555555556, 34.88888888888889};
+        int[] prices8 = {10000, 20000, 50000, 70000};
+        double[] shares8 = {0.0, 1.0, 1.5, 1.7};
 
-        int[] prices4 = {10000, 20000, 50000, 70000};
-        double[] shares4 = {0.0, 1.0, 1.5, 1.7};
-
-        assertTrue(s.generateCostAverageValues(prices1, shares1)[3] == 73333);
-        assertTrue(s.generateCostAverageValues(prices2, shares2)[3] == 220020);
-        assertTrue(s.generateCostAverageValues(prices3, shares3)[3] == 1396);
-        assertTrue(s.generateCostAverageValues(prices4, shares4)[3] == 119000);
+        assertTrue(s.generateValues(prices1, shares1)[3] == 40000);
+        assertTrue(s.generateValues(prices2, shares2)[3] == 600000);
+        assertTrue(s.generateValues(prices3, shares3)[3] == 4000);
+        assertTrue(s.generateValues(prices4, shares4)[3] == 42000);
+        assertTrue(s.generateValues(prices5, shares5)[3] == 73333);
+        assertTrue(s.generateValues(prices6, shares6)[3] == 220020);
+        assertTrue(s.generateValues(prices7, shares7)[3] == 1396);
+        assertTrue(s.generateValues(prices8, shares8)[3] == 119000);
     }
 
     @Test
