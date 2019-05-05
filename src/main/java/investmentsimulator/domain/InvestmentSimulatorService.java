@@ -174,8 +174,8 @@ public class InvestmentSimulatorService {
      */
     public void chartXAxisToValue(LineChart<String, Number> simulationChart) {
         simulationChart.getData().clear();
-        XYChart.Series valueAverageValues = intValuesAndDatesToXYChart("Value Averaging ostot", selectedSimulation.getValueAverageValues(), selectedSimulation.getDates());
-        XYChart.Series costAverageValues = intValuesAndDatesToXYChart("Cost Averaging ostot", selectedSimulation.getCostAverageValues(), selectedSimulation.getDates());
+        XYChart.Series valueAverageValues = intValuesAndDatesToXYChart("Value Averaging yhteisarvo", selectedSimulation.getValueAverageValues(), selectedSimulation.getDates());
+        XYChart.Series costAverageValues = intValuesAndDatesToXYChart("Cost Averaging yhteisarvo", selectedSimulation.getCostAverageValues(), selectedSimulation.getDates());
 
         simulationChart.getData().add(valueAverageValues);
         simulationChart.getData().add(costAverageValues);
@@ -192,8 +192,8 @@ public class InvestmentSimulatorService {
      */
     public void chartXAxisToProfit(LineChart<String, Number> simulationChart) {
         simulationChart.getData().clear();
-        XYChart.Series valueAverageProfit = intValuesAndDatesToXYChart("Value Averaging ostot", selectedSimulation.getValueAverageProfit(), selectedSimulation.getDates());
-        XYChart.Series costAverageProfit = intValuesAndDatesToXYChart("Cost Averaging ostot", selectedSimulation.getCostAverageProfit(), selectedSimulation.getDates());
+        XYChart.Series valueAverageProfit = intValuesAndDatesToXYChart("Value Averaging tuotot", selectedSimulation.getValueAverageProfit(), selectedSimulation.getDates());
+        XYChart.Series costAverageProfit = intValuesAndDatesToXYChart("Cost Averaging tuotot", selectedSimulation.getCostAverageProfit(), selectedSimulation.getDates());
 
         simulationChart.getData().add(valueAverageProfit);
         simulationChart.getData().add(costAverageProfit);

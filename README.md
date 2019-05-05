@@ -18,6 +18,8 @@ Tarkemmat kuvaukset sovelluksesta ja sen toiminnasta löytyvät dokumentaatiosta
 
 [Käyttöohje](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
 
+[Testausdokumentti](https://github.com/JoakimJoensuu/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
+
 ## Releaset 
 
 [Viikko 6](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/viikko6)

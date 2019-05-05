@@ -25,5 +25,6 @@
 | 4.5.  | 1     | Koodin siistimistä, dokumentaation läpikäynti. |
 | 4.5.  | 4     | Validoinnin luomista lomakkeille ja näiden testien tekoa |
 | 5.5   | 2     | Validoinnin luomista lomakkeille ja näiden testien tekoa |
-| yht   | 59	|						| 
+|       | 1     | Testausdokumentin teko      |
+| yht   | 60	|						| 
 
