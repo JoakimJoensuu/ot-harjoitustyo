@@ -37,7 +37,7 @@ Asennus suoritettiin [käyttöohjeen](https://github.com/JoakimJoensuu/ot-harjoi
 
 ### Toiminnallisuudet 
 
-Sovellusta testattiin kokeilemalla sovellusta, tutkimalla mitä toiminnallisuuksia siitä löytyy, testaamalla erilaisia syötteitä ja nappeja. So Tämän jälkeen tarkistettiin määrittelydokumentin toiminnallisuudet, joihin sovellus vastasi täysin.
+Sovellusta testattiin kokeilemalla sovellusta, tutkimalla mitä toiminnallisuuksia siitä löytyy, testaamalla erilaisia syötteitä ja nappeja. Tämän jälkeen tarkistettiin määrittelydokumentin toiminnallisuudet, joihin sovellus vastasi täysin.
 
 ### Sovelluksen puutteet ja ongelmat
 

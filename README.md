@@ -22,6 +22,8 @@ Tarkemmat kuvaukset sovelluksesta ja sen toiminnasta löytyvät dokumentaatiosta
 
 ## Releaset 
 
+[Loppupalautus](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/loppupalautus)
+
 [Viikko 6](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/viikko6)
 
 [Viikko 5](https://github.com/JoakimJoensuu/ot-harjoitustyo/releases/tag/viikko5)
